@@ -1,3 +1,3 @@
 # Language-Data-AI-Project
 
-To be filled it later.
+Example run command: python3 get_data.py -p "*21425*"
