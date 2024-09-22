@@ -185,5 +185,4 @@ fabric.properties
 .idea
 
 # not including data
-data/.mirror/*
-data/raw/*
+data
