@@ -39,7 +39,10 @@ def get_PG_number(string):
 
     # pg12345.txt.utf8
     elif string.find(".txt.utf8")>-1:
-            PG_number =  string.replace(".txt.utf8","").replace("pg","")
+        PG_number = string.replace(".txt.utf8","").replace("pg","")
+
+    if string.find("cache\\epub")>-1 and os.name == "nt":
+        PG_number = string.split("\\")[-1].replace("pg","").replace(".txt.utf8","").replace("-0.txt","")
 
     if not PG_number.isnumeric():
         print(string)
@@ -109,11 +112,20 @@ def populate_raw_from_mirror(mirror_dir=None,
                     # get PG number
                     PGnumber = get_PG_number(fname)
 
-                    source = os.path.join(dirName, fname)
-                    target = os.path.join(raw_dir, "PG"+PGnumber+"_raw.txt")
+                    if os.name == "nt":
+                        x = dirName.replace("\\", "/").split("/")
+                        dirName = x[0] + "/" + x[1] + "/"
+                        source = os.path.join(dirName, fname.replace("\\", "/"))
+                        target = os.path.join(raw_dir, "PG"+PGnumber+"_raw.txt")
+                    else:
+                        source = os.path.join(dirName, fname)
+                        target = os.path.join(raw_dir, "PG"+PGnumber+"_raw.txt")
 
                     if (not os.path.isfile(target)) or overwrite:
-                        subprocess.call(["ln", "-f", source, target])
+                        if os.name == 'nt':
+                            subprocess.call(["wsl", "ln", "-f", source, target])
+                        else:
+                            subprocess.call(["ln", "-f", source, target])
 
             # if file was not in dupes list and we are not quiet
             elif not quiet:

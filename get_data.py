@@ -99,12 +99,21 @@ if __name__ == '__main__':
     # + 12345 -   0   .  t x                 t 
     #---------------------------------------------
     #        [.-][t0][x.]t[x.]    *         [t8]
-    sp_args = ["rsync", "-am%s" % vstring,
-               "--include", "*/",
-               "--include", "[p123456789][g0123456789]%s[.-][t0][x.]t[x.]*[t8]" % args.pattern,
-               "--exclude", "*",
-               "aleph.gutenberg.org::gutenberg", args.mirror
-               ]
+    if os.name == 'nt':
+        sp_args = ["wsl", "rsync", "-am%s" % vstring,
+            "--include='*/'",
+            "--include='[p123456789][g0123456789]%s[.-][t0][x.]t[x.]*[t8]'" % args.pattern,
+            "--exclude='*'",
+            "aleph.gutenberg.org::gutenberg", args.mirror
+            ]
+    else:
+        sp_args = ["rsync", "-am%s" % vstring,
+            "--include", "*/",
+            "--include", "[p123456789][g0123456789]%s[.-][t0][x.]t[x.]*[t8]" % args.pattern,
+            "--exclude", "*",
+            "aleph.gutenberg.org::gutenberg", args.mirror
+            ]
+
     subprocess.call(sp_args)
 
     # Get rid of duplicates
