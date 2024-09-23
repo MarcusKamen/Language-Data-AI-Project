@@ -11,7 +11,7 @@ pip install -r requirements.txt
 
 2. Then create empty data and metadata folders
 ```bash
-pip install -r requirements.txt
+python getting_started.py
 ```
 ### If running on a Windows machine, make sure to have wsl installed.  
 ```bash
