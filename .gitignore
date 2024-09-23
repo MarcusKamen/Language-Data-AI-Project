@@ -186,3 +186,5 @@ fabric.properties
 
 # not including data
 data
+
+metadata
