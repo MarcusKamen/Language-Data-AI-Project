@@ -10,6 +10,7 @@ os.mkdir(path+'/counts')
 os.mkdir(path+'/raw')
 os.mkdir(path+'/text')
 os.mkdir(path+'/tokens')
+os.mkdir(path+'/raw_clean')
 
 os.mkdir('./metadata')
 os.mkdir('./metadata/bookshelves_html')
