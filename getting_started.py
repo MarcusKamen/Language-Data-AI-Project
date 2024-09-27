@@ -1,18 +1,19 @@
 import os
 
-# specify the path for the directory – make sure to surround it with quotation marks
-path = './data'
+def main():
+    path = './data'
 
-# create new single directory
-os.mkdir(path)
-os.mkdir(path+'/.mirror')
-os.mkdir(path+'/counts')
-os.mkdir(path+'/raw')
-os.mkdir(path+'/text')
-os.mkdir(path+'/tokens')
-os.mkdir(path+'/raw_clean')
+    os.makedirs(path, exist_ok=True)
+    os.makedirs(path+'/.mirror', exist_ok=True)
+    os.makedirs(path+'/counts', exist_ok=True)
+    os.makedirs(path+'/raw', exist_ok=True)
+    os.makedirs(path+'/text', exist_ok=True)
+    os.makedirs(path+'/tokens', exist_ok=True)
+    os.makedirs(path+'/raw_clean', exist_ok=True)
 
-os.mkdir('./metadata')
-os.mkdir('./metadata/bookshelves_html')
+    os.makedirs('./metadata', exist_ok=True)
+    os.makedirs('./metadata/bookshelves_html', exist_ok=True)
 
 
+if __name__ == "__main__":
+    main()
