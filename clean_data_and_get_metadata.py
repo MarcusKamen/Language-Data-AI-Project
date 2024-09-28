@@ -1,4 +1,5 @@
 import os
+import get_metadata
 
 # fail safe for reading files with different encodings
 def get_file_text(file_path):
@@ -73,7 +74,11 @@ def main():
             print(f"Language: {language}")
 
         # TODO
-        # Call API to get metadata using author and title information
+        # Call API to get metadata of author
+        print(get_metadata.find_book(title, author))
+
+
+
         first_sentence = []
 
         # Assuming first_sentence is a list of possible first_sentences
