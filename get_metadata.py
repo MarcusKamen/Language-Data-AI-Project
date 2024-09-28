@@ -48,15 +48,14 @@ def find_book(title, author):
                 except:
                     print("No place data")
                 try:
-                    ret['first_sentence'].append(doc['first_sentence'])
+                    for sentence in doc['first_sentence']:
+                        ret['first_sentence'].append(sentence)
                 except:
                     print('No first sentence')
 
         except:
             print("Error getting book information, skipping book in the list")
 
-    if ret['year'] == 10000:
-        return {}
     return ret
 
 

@@ -1,5 +1,6 @@
 import os
 import get_metadata
+import re
 
 # fail safe for reading files with different encodings
 def get_file_text(file_path):
@@ -18,6 +19,9 @@ def get_file_text(file_path):
 
 
 def main():
+    with open('./metadata/metadata.csv', 'w', encoding='utf-8') as metadata_file:
+        metadata_file.write("Title,Author,Year,Place\n")
+
     folder_path = './data/raw'
 
     # set break condition to for loop for testing purposes
@@ -26,7 +30,7 @@ def main():
     for filename in os.listdir(folder_path):
         print()
 
-        if i == 10:
+        if i == 100:
             break
 
         i += 1
@@ -73,13 +77,13 @@ def main():
                 continue
             print(f"Language: {language}")
 
-        # TODO
-        # Call API to get metadata of author
-        print(get_metadata.find_book(title, author))
 
+        metadata = get_metadata.find_book(title, author)
+        print(metadata)
 
-
-        first_sentence = []
+        place = metadata['place']
+        year = metadata['year']
+        first_sentence = metadata['first_sentence']
 
         # Assuming first_sentence is a list of possible first_sentences
         if "***" in text:
@@ -95,9 +99,13 @@ def main():
             continue
 
         min_loc = -1
+        # make only alphabetic characters for testing
+        test_text = ''.join([char for char in text if char.isalpha()]).lower()
+
         for sentence in first_sentence:
-            if sentence in text:
-                sentence_loc = text.find(sentence)
+            test_sentence = ''.join([char for char in sentence if char.isalpha()]).lower()
+            if test_sentence in test_text:
+                sentence_loc = test_text.find(test_sentence)
                 if sentence_loc > second_star_loc and (min_loc == -1 or sentence_loc < min_loc):
                     min_loc = sentence_loc
 
@@ -105,14 +113,24 @@ def main():
             print("Skipping file because first sentence not found")
             continue
 
-        clean_text = text[min_loc:third_star_loc]
+        # map to original index
+        count = 0
+        original_index = -1
+        for index, char in enumerate(text.lower()):
+            if not char.isalpha(): # match white space or dash
+                count += 1
+            if index - count == min_loc:
+                original_index = index
+                break
+
+        clean_text = text[original_index:third_star_loc]
         print("Found all needed information, adding metadata and cleaned data")
         
-        with(open(f"./data/raw_cleaned/{filename}", 'w', encoding='utf-8')) as clean_file:
+        with(open(f"./data/raw_clean/{filename}", 'w', encoding='utf-8')) as clean_file:
             clean_file.write(clean_text)
-
-        # TODO
-        # add metadata to csv file
+        
+        with open('./metadata/metadata.csv', 'a', encoding='utf-8') as metadata_file:
+            metadata_file.write(f"{title},{author},{year},{place}\n")
 
 
 if __name__ == "__main__":
