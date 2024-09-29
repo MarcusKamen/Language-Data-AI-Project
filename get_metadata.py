@@ -14,7 +14,7 @@ def main():
 
 # metadata returns a dictionary with the metadata of the book
 def find_book(title, author):
-    ret = {'year': 10000, 'place': "", 'first_sentence': []}  # starting with a year of 10000 so that found books can be less
+    ret = {'year': 10000, 'place': [], 'first_sentence': []}  # starting with a year of 10000 so that found books can be less
     combined = (title.replace(" ", "+") + "+" + author.replace(" ", "+"))
 
     url = "https://openlibrary.org/search.json?q=" + combined
@@ -44,7 +44,7 @@ def find_book(title, author):
                     except:
                         print("No year data")
                 try:
-                    ret['place'] = doc['place'] + " " + ret['place']
+                    ret['place'] += doc['place'] 
                 except:
                     print("No place data")
                 try:
