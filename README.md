@@ -3,7 +3,12 @@
 
 ## Getting Started
 
-1. Create empty data and metadata folders
+1. Pip install requests
+```bash
+pip install requests
+```
+
+2. Create empty data and metadata folders
 ```bash
 python getting_started.py
 ```

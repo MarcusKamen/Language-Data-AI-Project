@@ -101,6 +101,7 @@ def main():
                     writer = csv.writer(not_metadata_file, quoting=csv.QUOTE_MINIMAL)
                     writer.writerow([title, author])
                     # metadata_file.write(entry)s
+            continue
 
 
         place = metadata['place']
