@@ -30,7 +30,7 @@ def main():
     for filename in os.listdir(folder_path):
         print()
 
-        if i == 100:
+        if i == 10:
             break
 
         i += 1
@@ -79,7 +79,31 @@ def main():
 
 
         metadata = get_metadata.find_book(title, author)
-        print(metadata)
+
+        if metadata == {'year': 10000, 'place': [], 'first_sentence': []}:
+            print("Book not found!")
+            file_path = './metadata/booksnotfound.csv'
+
+            # Prepare the entry to write
+            entry = f"{title},{author}\n"
+
+            # Check if the file exists and read its contents
+            if os.path.exists(file_path):
+                with open(file_path, 'r', encoding='utf-8', errors='replace') as metadata_file:
+                    existing_entries = metadata_file.readlines()
+                    
+                # Check if the entry already exists
+                if entry not in existing_entries:
+                    with open(file_path, 'a', encoding='utf-8') as metadata_file:
+                        metadata_file.write(entry)
+            else:
+                # If the file doesn't exist, create it and write the entry
+                with open(file_path, 'w', encoding='utf-8') as metadata_file:
+                    metadata_file.write(entry)
+                        
+
+                #     else:
+                #         print(metadata)
 
         place = metadata['place']
         year = metadata['year']
