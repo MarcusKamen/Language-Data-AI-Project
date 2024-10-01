@@ -25,10 +25,10 @@ def main():
     metadata_file_path = './metadata/metadata.csv'
 
     with open(metadata_file_path, 'w', encoding='utf-8') as metadata_file:
-        metadata_file.write("Title,Author,Year,Place\n")
+        metadata_file.write("FileName,Title,Author,Year,Place\n")
 
     with open(not_found_file_path, 'w', encoding='utf-8') as not_metadata_file:
-        not_metadata_file.write("Title,Author\n")
+        not_metadata_file.write("FileName,Title,Author\n")
 
     # set break condition to for loop for testing purposes
     i = 0
@@ -99,7 +99,7 @@ def main():
             if entry not in existing_entries:
                 with open(not_found_file_path, 'a', encoding='utf-8', newline='') as not_metadata_file:
                     writer = csv.writer(not_metadata_file, quoting=csv.QUOTE_MINIMAL)
-                    writer.writerow([title, author])
+                    writer.writerow([filename, title, author])
                     # metadata_file.write(entry)s
             continue
 
@@ -154,7 +154,7 @@ def main():
         
         with open(metadata_file_path, 'a', encoding='utf-8', newline='') as metadata_file:
             writer = csv.writer(metadata_file, quoting=csv.QUOTE_MINIMAL)
-            writer.writerow([title, author, year, place])
+            writer.writerow([filename, title, author, year, place])
 
 
 if __name__ == "__main__":
