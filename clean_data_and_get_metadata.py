@@ -23,12 +23,16 @@ def main():
     clean_folder_path = './data/raw_clean/'
     not_found_file_path = './metadata/booksnotfound.csv'
     metadata_file_path = './metadata/metadata.csv'
+    no_first_sentence_file_path = './metadata/nofirstsentence.csv'
 
     with open(metadata_file_path, 'w', encoding='utf-8') as metadata_file:
         metadata_file.write("FileName,Title,Author,Year,Place\n")
 
     with open(not_found_file_path, 'w', encoding='utf-8') as not_metadata_file:
         not_metadata_file.write("FileName,Title,Author\n")
+
+    with open(no_first_sentence_file_path, 'w', encoding='utf-8') as no_first_sentence_file:
+        no_first_sentence_file.write("FileName,Title,Author,Year,Place\n")
 
     # set break condition to for loop for testing purposes
     i = 0
@@ -133,7 +137,14 @@ def main():
                     min_loc = sentence_loc
 
         if min_loc == -1:
-            print("Skipping file because first sentence not found")
+            print("No first sentence found, writing to no_first_sentence.csv")
+            with open(no_first_sentence_file_path, 'a', encoding='utf-8', newline='') as no_first_sentence_file:
+                writer = csv.writer(no_first_sentence_file, quoting=csv.QUOTE_MINIMAL)
+                writer.writerow([filename, title, author, year, place])
+
+            clean_text = text[second_star_loc:third_star_loc]
+            with(open(f"{clean_folder_path}{filename}", 'w', encoding='utf-8')) as clean_file:
+                clean_file.write(clean_text)
             continue
 
         # map to original index
