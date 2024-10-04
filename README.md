@@ -24,4 +24,13 @@ python clean_data_and_get_metadata.py
 ```
 
 
+## Explanation of Metadata files
+
+1. metadata.csv - Found full metadata for this file, including first sentence
+2. nofirstsentence.csv - Found full metadata for this file, not including first sentence
+3. booksnotfound.csv - Did not find any metadata for this file
+4. wrongstars.csv - File is not formatted well to search for first sentence and pull cleaned information
+5. nostartdata.csv - File does not have necessary starter information to be considered (e.g. it is a translation)
+
+
 

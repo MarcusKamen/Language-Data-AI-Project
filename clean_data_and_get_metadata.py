@@ -18,12 +18,20 @@ def get_file_text(file_path):
     return text
 
 
+def print_cleaned_text(filename, text):
+    clean_folder_path = './data/raw_clean/'
+
+    with(open(f"{clean_folder_path}{filename}", 'w', encoding='utf-8')) as clean_file:
+        clean_file.write(text)
+
+
 def main():
     folder_path = './data/raw'
-    clean_folder_path = './data/raw_clean/'
     not_found_file_path = './metadata/booksnotfound.csv'
     metadata_file_path = './metadata/metadata.csv'
     no_first_sentence_file_path = './metadata/nofirstsentence.csv'
+    wrong_stars_file_path = './metadata/wrongstars.csv'
+    no_start_file_path = './metadata/nostartdata.csv'
 
     with open(metadata_file_path, 'w', encoding='utf-8') as metadata_file:
         metadata_file.write("FileName,Title,Author,Year,Place\n")
@@ -33,6 +41,12 @@ def main():
 
     with open(no_first_sentence_file_path, 'w', encoding='utf-8') as no_first_sentence_file:
         no_first_sentence_file.write("FileName,Title,Author,Year,Place\n")
+    
+    with open(wrong_stars_file_path, 'w', encoding='utf-8') as wrong_stars_file:
+        wrong_stars_file.write("FileName,Title,Author,Year,Place\n")
+
+    with open(no_start_file_path, 'w', encoding='utf-8') as no_start_file:
+        no_start_file.write("FileName,Title,Author,Translator,Language\n")
 
     # set break condition to for loop for testing purposes
     i = 0
@@ -49,6 +63,10 @@ def main():
         # Check if it's a file (and not a directory)
         if not os.path.isfile(file_path):
             print(f"Skipping directory: {filename}")
+            print_cleaned_text(filename, "")
+            with open(no_start_file_path, 'a', encoding='utf-8', newline='') as no_start_file:
+                writer = csv.writer(no_start_file, quoting=csv.QUOTE_MINIMAL)
+                writer.writerow([filename, "", "", "", ""])
             continue
         
         print(f"Processing file: {filename}")
@@ -56,6 +74,11 @@ def main():
         text = get_file_text(file_path)
         
         if text is None:
+            print("Skipping file because of error reading file")
+            print_cleaned_text(filename, "")
+            with open(no_start_file_path, 'a', encoding='utf-8', newline='') as no_start_file:
+                writer = csv.writer(no_start_file, quoting=csv.QUOTE_MINIMAL)
+                writer.writerow([filename, "", "", "", ""])
             continue
             
         if "Title: " in text:
@@ -63,27 +86,48 @@ def main():
             print(f"Title: {title}")
         else:
             print("Skipping file because title not found")
+            print_cleaned_text(filename, text)
+            with open(no_start_file_path, 'a', encoding='utf-8', newline='') as no_start_file:
+                writer = csv.writer(no_start_file, quoting=csv.QUOTE_MINIMAL)
+                writer.writerow([filename, "", "", "", ""])
             continue
 
         if "Author: " in text:
             author = text.split("Author: ")[1].split("\n")[0]
             if author == "Anonymous" or author == "Various":
                 print("Skipping file because author is Anonymous or Various")
+                print_cleaned_text(filename, text)
+                with open(no_start_file_path, 'a', encoding='utf-8', newline='') as no_start_file:
+                    writer = csv.writer(no_start_file, quoting=csv.QUOTE_MINIMAL)
+                    writer.writerow([filename, title, author, "", ""])
                 continue
             print(f"Author: {author}")
         else:
             print("Skipping file because author not found")
+            print_cleaned_text(filename, text)
+            with open(no_start_file_path, 'a', encoding='utf-8', newline='') as no_start_file:
+                writer = csv.writer(no_start_file, quoting=csv.QUOTE_MINIMAL)
+                writer.writerow([filename, title, "", "", ""])
             continue
 
         # skip if different language
         if "Translator: " in text:
+            translator = text.split("Translator: ")[1].split("\n")[0]
             print("Skipping file because it's a translation")
+            print_cleaned_text(filename, text)
+            with open(no_start_file_path, 'a', encoding='utf-8', newline='') as no_start_file:
+                writer = csv.writer(no_start_file, quoting=csv.QUOTE_MINIMAL)
+                writer.writerow([filename, title, author, translator, ""])
             continue
 
         if "Language: " in text:
             language = text.split("Language: ")[1].split("\n")[0]
             if language != "English":
                 print("Skipping file because it's not in English")
+                print_cleaned_text(filename, text)
+                with open(no_start_file_path, 'a', encoding='utf-8', newline='') as no_start_file:
+                    writer = csv.writer(no_start_file, quoting=csv.QUOTE_MINIMAL)
+                    writer.writerow([filename, title, author, "", language])
                 continue
             print(f"Language: {language}")
 
@@ -91,19 +135,20 @@ def main():
         metadata = get_metadata.find_book(title, author)
 
         if metadata == {'year': 10000, 'place': [], 'first_sentence': []}:
-            print("Book not found!")
+            print("No metadata found, writing to booksnotfound.csv")
 
             # Prepare the entry to write
-            entry = f"{title},{author}\n"
+            # entry = f"{title},{author}\n"
 
-            with open(not_found_file_path, 'r', encoding='utf-8', errors='replace') as not_metadata_file:
-                existing_entries = not_metadata_file.readlines()
+            # with open(not_found_file_path, 'r', encoding='utf-8', errors='replace') as not_metadata_file:
+            #     existing_entries = not_metadata_file.readlines()
                     
             # Check if the entry already exists
-            if entry not in existing_entries:
-                with open(not_found_file_path, 'a', encoding='utf-8', newline='') as not_metadata_file:
-                    writer = csv.writer(not_metadata_file, quoting=csv.QUOTE_MINIMAL)
-                    writer.writerow([filename, title, author])
+            # if entry not in existing_entries:
+            print_cleaned_text(filename, text)
+            with open(not_found_file_path, 'a', encoding='utf-8', newline='') as not_metadata_file:
+                writer = csv.writer(not_metadata_file, quoting=csv.QUOTE_MINIMAL)
+                writer.writerow([filename, title, author])
                     # metadata_file.write(entry)s
             continue
 
@@ -112,17 +157,17 @@ def main():
         year = metadata['year']
         first_sentence = metadata['first_sentence']
 
-        # Assuming first_sentence is a list of possible first_sentences
-        if "***" in text:
-            first_star_loc = text.find("***")
-            try:
-                second_star_loc = text.find("***", first_star_loc + 1)
-                third_star_loc = text.find("***", second_star_loc + 1)
-            except:
-                print("Skipping file because not enough *** found")
-                continue
-        else:
-            print("Skipping file because *** not found")
+        try:
+            first_star_loc = text.find("*** START OF THE PROJECT GUTENBERG EBOOK")
+            second_star_loc = text.find("***", first_star_loc + 3)
+            third_star_loc = text.find("*** END OF THE PROJECT GUTENBERG EBOOK", second_star_loc + 3)
+            forth_star_loc = text.find("***", third_star_loc + 3)
+        except:
+            print("Skipping file because of error finding stars")
+            print_cleaned_text(filename, text)
+            with open(wrong_stars_file_path, 'a', encoding='utf-8', newline='') as wrong_stars_file:
+                writer = csv.writer(wrong_stars_file, quoting=csv.QUOTE_MINIMAL)
+                writer.writerow([filename, title, author, year, place])
             continue
 
         min_loc = -1
@@ -143,8 +188,20 @@ def main():
                 writer.writerow([filename, title, author, year, place])
 
             clean_text = text[second_star_loc:third_star_loc]
-            with(open(f"{clean_folder_path}{filename}", 'w', encoding='utf-8')) as clean_file:
-                clean_file.write(clean_text)
+            
+            while "Chapter 1".lower() in clean_text.lower() or "Chapter I".lower() in clean_text.lower():
+                next_loc = -1
+                if "Chapter 1".lower() in clean_text.lower():
+                    next_loc = clean_text.lower().find("Chapter 1".lower())
+                if "Chapter I".lower() in clean_text.lower():
+                    next_loc_2 = clean_text.lower().find("Chapter I".lower())
+                    if next_loc == -1 or next_loc_2 < next_loc:
+                        next_loc = next_loc_2
+                
+                next_loc = next_loc + 9
+                clean_text = clean_text[next_loc:]
+
+            print_cleaned_text(filename, clean_text)
             continue
 
         # map to original index
@@ -160,8 +217,7 @@ def main():
         clean_text = text[original_index:third_star_loc]
         print("Found all needed information, adding metadata and cleaned data")
         
-        with(open(f"{clean_folder_path}{filename}", 'w', encoding='utf-8')) as clean_file:
-            clean_file.write(clean_text)
+        print_cleaned_text(filename, clean_text)
         
         with open(metadata_file_path, 'a', encoding='utf-8', newline='') as metadata_file:
             writer = csv.writer(metadata_file, quoting=csv.QUOTE_MINIMAL)
