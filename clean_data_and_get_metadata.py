@@ -134,6 +134,14 @@ def main():
 
         metadata = get_metadata.find_book(title, author)
 
+        if 'error' in metadata:
+            print(f"Error: {metadata['error']}, {metadata['error_type']}")
+            if metadata['error_type'] == 'Timeout':
+                print()
+                print('OpenLibrary may be down due to DDOS attack, stop trying')
+                break
+            continue
+
         if metadata == {'year': 10000, 'place': [], 'first_sentence': []}:
             print("No metadata found, writing to booksnotfound.csv")
 

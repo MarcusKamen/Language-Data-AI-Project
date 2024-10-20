@@ -1,4 +1,5 @@
 import requests
+from requests.exceptions import Timeout, RequestException
 
 # for each book
 
@@ -19,15 +20,18 @@ def find_book(title, author):
 
     url = "https://openlibrary.org/search.json?q=" + combined
     print(url)
-    response = requests.get(url)
 
-    # Check if the request was successful (status code 200)
-    if response.status_code == 200:
-        # Parse the response as JSON
-        data = response.json()
+    try:
+        # Set a timeout value in seconds
+        response = requests.get(url, timeout=10)
         
-    else:
-        print(f"Failed to retrieve data. Status code: {response.status_code}")
+        # Check if the response was successful (status code 200)
+        response.raise_for_status()
+        data = response.json()
+    except Timeout as e:
+        return {'error': str(e), 'error_type': 'Timeout'}
+    except RequestException as e:
+        return {'error': str(e), 'error_type': 'RequestException'}
 
 
     docs = data['docs']
@@ -61,6 +65,6 @@ def find_book(title, author):
 
 if __name__ == "__main__":
     main()
+
 # TODO:
-# Put data into csv file
 # Account for weird author attributions in pg
