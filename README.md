@@ -29,10 +29,23 @@ python clean_data_and_get_metadata.py
 
 pip install nltk
 
+pip install scikit-learn
+
+pip install pandas openpyxl
+
 5. get the word counts of all stemmed and lemmatized data.
 
 python word_counts.py
 
+6. ridge regression baby
+
+python ridge_regression_predict.py
+
+(
+Mean Squared Error: 405.4134437277079
+Example Predictions (True Date vs Predicted Date):
+True Date: 1776, Predicted Date: 1299
+)
 
 
 ## Explanation of Metadata files
