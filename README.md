@@ -24,6 +24,17 @@ python clean_data_and_get_metadata.py
 ```
 
 
+
+4. download nltk
+
+pip install nltk
+
+5. get the word counts of all stemmed and lemmatized data.
+
+python word_counts.py
+
+
+
 ## Explanation of Metadata files
 
 1. metadata.csv - Found full metadata for this file, including first sentence
