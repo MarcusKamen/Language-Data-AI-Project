@@ -3,3 +3,8 @@ lxml
 nltk
 numpy
 pandas
+scikit-learn
+tensorflow
+matplotlib
+seaborn
+tqdm
