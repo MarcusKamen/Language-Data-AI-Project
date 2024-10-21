@@ -17,13 +17,13 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Dropout
 
 # Paths
-CLEANED_DATA_PATH = '../data/raw_clean/'  # Path to cleaned text files
-COUNTS_DATA_PATH = '../data/counts/'      # Path to word count JSON files
-METADATA_PATH = '../data/metadata/metadata.csv'  # Path to metadata.csv
-PROCESSED_DATA_PATH = '../processed_data/processed_data.csv'  # Output path
+CLEANED_DATA_PATH = 'data/raw_clean/'  # Path to cleaned text files
+COUNTS_DATA_PATH = 'data/counts/'      # Path to word count JSON files
+METADATA_PATH = 'metadata/metadata.csv'  # Path to metadata.csv
+PROCESSED_DATA_PATH = 'processed_data/processed_data.csv'  # Output path
 
-MODEL_SAVE_PATH = '../models/text_year_model.h5'
-VECTORIZER_SAVE_PATH = '../models/tfidf_vectorizer.pkl'
+MODEL_SAVE_PATH = 'models/text_year_model.h5'
+VECTORIZER_SAVE_PATH = 'models/tfidf_vectorizer.pkl'
 
 def load_metadata(metadata_path):
     """Load metadata CSV."""

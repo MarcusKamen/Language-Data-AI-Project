@@ -31,7 +31,7 @@ def prepare_data(word_count_data, metadata_list):
     filtered_metadata_list = []
 
     for word_counts, metadata in zip(word_count_data, metadata_list):
-        if 'Year' in metadata:
+        if 'year' in metadata and metadata['year'] != "":
             filtered_word_count_data.append(word_counts)
             filtered_metadata_list.append(metadata)
 
@@ -40,7 +40,7 @@ def prepare_data(word_count_data, metadata_list):
     X = vectorizer.fit_transform(filtered_word_count_data)
     
     # Extract the target variable (years) from the filtered metadata
-    y = [int(metadata['Year']) for metadata in filtered_metadata_list]
+    y = [int(metadata['year']) for metadata in filtered_metadata_list]
     
     return X, y, vectorizer
 

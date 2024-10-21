@@ -61,6 +61,8 @@ import nltk
 from nltk.corpus import wordnet
 from nltk.stem import WordNetLemmatizer
 from nltk.stem import PorterStemmer
+import csv
+
 nltk.download('punkt')
 nltk.download('punkt_tab')
 
@@ -87,17 +89,149 @@ def preprocess_text(content):
     return processed_words
 
 # Function to read files from the input folder
-def read_files(input_folder):
+def read_files(input_folder, metadata_folder):
     file_data = []
-    for filename in os.listdir(input_folder):
-        if filename.endswith(".txt"):
-            file_path = os.path.join(input_folder, filename)
-            with open(file_path, 'r', encoding='utf-8') as f:
-                file_data.append({
-                    "filename": filename,
-                    "content": f.read()
-                })
-    return file_data
+    booksnotfound_file = os.path.join(metadata_folder, 'booksnotfound.csv')
+    metadata_file = os.path.join(metadata_folder, 'metadata.csv')
+    nofirstsentence_file = os.path.join(metadata_folder, 'nofirstsentence.csv')
+    nostartdata_file = os.path.join(metadata_folder, 'nostartdata.csv')
+    wrongstarsdata_file = os.path.join(metadata_folder, 'wrongstars.csv')
+
+    with open(booksnotfound_file, 'r', encoding='utf-8', newline='') as f:
+        reader = csv.reader(f, quoting=csv.QUOTE_MINIMAL)
+        first = True
+        for row in reader:
+            if first:
+                first = False
+                continue
+            filename = row[0]
+            title = row[1]
+            author = row[2]
+
+            with open(os.path.join(input_folder, filename), 'r', encoding='utf-8') as g:
+                content = g.read()
+
+            file_data.append({
+                "filename": filename,
+                "content": content,
+                "title": title,
+                "author": author,
+                "year": "",
+                "place": "",
+                "translator": "",
+                "language": ""
+            })
+
+    with open(metadata_file, 'r', encoding='utf-8', newline='') as f:
+        reader = csv.reader(f, quoting=csv.QUOTE_MINIMAL)
+        first = True
+        for row in reader:
+            if first:
+                first = False
+                continue
+            filename = row[0]
+            title = row[1]
+            author = row[2]
+            year = row[3]
+            place = row[4]
+
+            with open(os.path.join(input_folder, filename), 'r', encoding='utf-8') as g:
+                content = g.read()
+
+            file_data.append({
+                "filename": filename,
+                "content": content,
+                "title": title,
+                "author": author,
+                "year": year,
+                "place": place,
+                "translator": "",
+                "language": ""
+            })
+
+    with open(nofirstsentence_file, 'r', encoding='utf-8', newline='') as f:
+        reader = csv.reader(f, quoting=csv.QUOTE_MINIMAL)
+        first = True
+        for row in reader:
+            if first:
+                first = False
+                continue
+            filename = row[0]
+            title = row[1]
+            author = row[2]
+            year = row[3]
+            place = row[4]
+
+            with open(os.path.join(input_folder, filename), 'r', encoding='utf-8') as g:
+                content = g.read()
+
+            file_data.append({
+                "filename": filename,
+                "content": content,
+                "title": title,
+                "author": author,
+                "year": year,
+                "place": place,
+                "translator": "",
+                "language": ""
+            })
+
+    with open(nostartdata_file, 'r', encoding='utf-8', newline='') as f:
+        reader = csv.reader(f, quoting=csv.QUOTE_MINIMAL)
+        first = True
+        for row in reader:
+            if first:
+                first = False
+                continue
+            filename = row[0]
+            title = row[1]
+            author = row[2]
+            translator = row[3]
+            language = row[4]
+
+            with open(os.path.join(input_folder, filename), 'r', encoding='utf-8') as g:
+                content = g.read()
+
+            file_data.append({
+                "filename": filename,
+                "content": content,
+                "title": title,
+                "author": author,
+                "year": "",
+                "place": "",
+                "translator": translator,
+                "language": language
+            })
+
+    with open(wrongstarsdata_file, 'r', encoding='utf-8', newline='') as f:
+        reader = csv.reader(f, quoting=csv.QUOTE_MINIMAL)
+        first = True
+        for row in reader:
+            if first:
+                first = False
+                continue
+            filename = row[0]
+            title = row[1]
+            author = row[2]
+            year = row[3]
+            place = row[4]
+
+            with open(os.path.join(input_folder, filename), 'r', encoding='utf-8') as g:
+                content = g.read()
+
+            file_data.append({
+                "filename": filename,
+                "content": content,
+                "title": title,
+                "author": author,
+                "year": year,
+                "place": place,
+                "translator": "",
+                "language": ""
+            })
+
+    return file_data            
+                
 
 # Function to count words in the processed content
 def count_words(processed_words):
@@ -116,8 +250,9 @@ def save_word_counts(word_counts, metadata, output_folder):
             "word_counts": dict(word_counts)
         }, f, ensure_ascii=False, indent=4)
 
-def main(input_folder, output_folder):
-    files = read_files(input_folder)
+
+def main(input_folder, output_folder, metadata_folder):
+    files = read_files(input_folder, metadata_folder)
     
     for file_data in files:
         # Preprocess content (remove punctuation, lemmatize, and stem)
@@ -128,7 +263,13 @@ def main(input_folder, output_folder):
         
         metadata = {
             "filename": file_data["filename"],
-            "word_count": sum(word_counts.values())  # Total number of words
+            "word_count": sum(word_counts.values()),  # Total number of words
+            "title": file_data["title"],
+            "author": file_data["author"],
+            "year": file_data["year"],
+            "place": file_data["place"],
+            "translator": file_data["translator"],
+            "language": file_data["language"]
         }
         
         # Save word counts with metadata
@@ -139,6 +280,7 @@ def main(input_folder, output_folder):
 if __name__ == "__main__":
     # Set input folder and output folder paths
     input_folder = "data/raw_clean"  # folder containing input text files
+    metadata_folder = "metadata"  # folder containing metadata files
     output_folder = "data/counts"    # folder to save word count files
 
-    main(input_folder, output_folder)
+    main(input_folder, output_folder, metadata_folder)
