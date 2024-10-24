@@ -124,13 +124,14 @@ def find_book_google_api(title, author):
     for item in items:
         doc = item['volumeInfo']
         try:
-            print("matching book found in API")
-            date = int(doc['publishedDate'].split('-')[0])
-            if date < int(ret['year']):
-                try:
-                    ret['year'] = date
-                except:
-                    print("No year data")
+            if doc['title'].lower() in title.lower():
+                print("matching book found in API")
+                date = int(doc['publishedDate'].split('-')[0])
+                if date < int(ret['year']) and date != 101:
+                    try:
+                        ret['year'] = date
+                    except:
+                        print("No year data")
         except:
             print("Error getting book information, skipping book in the list")
 
@@ -140,3 +141,8 @@ def find_book_google_api(title, author):
 
 if __name__ == "__main__":
     main()
+
+
+# weird books
+# The Secret Garden,Frances Hodgson Burnett
+# Uncle Silas, J. S. LeFanu
