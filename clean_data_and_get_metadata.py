@@ -134,13 +134,14 @@ def main():
 
         metadata = get_metadata.find_book(title, author)
 
+        if 'error' in metadata and 'year' not in metadata:
+            print(f"Error: {metadata['error']}, {metadata['error_type']}")
+            print('Both APIs failed')
+            continue
+
         if 'error' in metadata:
             print(f"Error: {metadata['error']}, {metadata['error_type']}")
-            if metadata['error_type'] == 'Timeout':
-                print()
-                print('OpenLibrary may be down due to DDOS attack, stop trying')
-                break
-            continue
+            print('Only one API failed, continuing with the other')
 
         if metadata == {'year': 10000, 'place': [], 'first_sentence': []}:
             print("No metadata found, writing to booksnotfound.csv")
