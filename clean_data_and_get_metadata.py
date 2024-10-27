@@ -148,7 +148,7 @@ def main():
             print(f"Error: {metadata['error']}, {metadata['error_type']}")
             print('Only one API failed, continuing with the other')
 
-        if metadata == {'year': 10000, 'place': [], 'first_sentence': []}:
+        if 'year' not in metadata or metadata['year'] == 10000:
             print("No metadata found, writing to booksnotfound.csv")
 
             # Prepare the entry to write
