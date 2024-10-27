@@ -53,9 +53,14 @@ def main():
 
     for filename in os.listdir(folder_path):
         print()
+        print(i)
 
-        if i == 100:
-            break
+        if i < 5000:
+            i += 1
+            continue
+
+        # if i == 5000:
+        #     break
 
         i += 1
         file_path = os.path.join(folder_path, filename)

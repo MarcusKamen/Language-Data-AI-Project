@@ -41,11 +41,15 @@ python word_counts.py
 
 python ridge_regression_predict.py
 
-(
-Mean Squared Error: 405.4134437277079
+//with 5000 documents downloaded
+Mean Squared Error: 9412.832333371905
+
 Example Predictions (True Date vs Predicted Date):
-True Date: 1776, Predicted Date: 1299
-)
+True Date: 1776, Predicted Date: 1823
+True Date: 1915, Predicted Date: 1970
+True Date: 1895, Predicted Date: 1899
+True Date: 1885, Predicted Date: 1900
+True Date: 1914, Predicted Date: 1829
 
 
 ## Explanation of Metadata files
