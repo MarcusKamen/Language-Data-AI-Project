@@ -3,6 +3,7 @@ from requests.exceptions import Timeout, RequestException
 import os
 from dotenv import load_dotenv
 import scrape_google
+# import re
 
 def main():
     title = input("Input the title: ").strip()
@@ -17,26 +18,33 @@ def find_book(title, author):
     ret_google_api = find_book_google_api(title, author)
     ret_scrape_google = get_scrape_google(title, author)
 
-    if 'error' in ret_open_library and 'error' in ret_google_api:
-        return {'error': 'Both APIs failed', 'error_type': 'two'}
-    if 'error' in ret_google_api:
-        ret['year'] = int(ret_open_library['year'])
-        ret['place'] = ret_open_library['place']
-        ret['first_sentence'] = ret_open_library['first_sentence']
-        ret['error'] = ret_google_api['error']
-        ret['error_type'] = ret_google_api['error_type']
-        return ret
-    if 'error' in ret_open_library:
-        ret['year'] = int(ret_google_api['year'])
-        ret['place'] = ret_google_api['place']
-        ret['first_sentence'] = ret_google_api['first_sentence']
-        ret['error'] = ret_open_library['error']
-        ret['error_type'] = ret_open_library['error_type']
-        return ret
+    if 'year' in ret_open_library:
+        ret['year'] = min(ret['year'], ret_open_library['year'])
+    if 'year' in ret_google_api:
+        ret['year'] = min(ret['year'], ret_google_api['year'])
+    if ret_scrape_google < ret['year']:
+        ret['year'] = ret_scrape_google
 
-    ret['year'] = min(int(ret_open_library['year']), int(ret_google_api['year']), ret_scrape_google)
-    ret['place'] = ret_open_library['place']
-    ret['first_sentence'] = ret_open_library['first_sentence']
+    if 'place' in ret_open_library:
+        ret['place'] = ret_open_library['place']
+    if 'first_sentence' in ret_open_library:
+        ret['first_sentence'] = ret_open_library['first_sentence']
+
+    if 'error' in ret_open_library and 'error' in ret_google_api and ret_scrape_google == 10000:
+        return {'error': 'No data found', 'error_type': 'No data'}
+    if 'error' in ret_open_library or 'error' in ret_google_api or ret_scrape_google == 10000:
+        ret['error'] = []
+        ret['error_type'] = []
+
+    if 'error' in ret_open_library:
+        ret['error'].append(ret_open_library['error'])
+        ret['error_type'].append(ret_open_library['error_type'])
+    if 'error' in ret_google_api:
+        ret['error'].append(ret_google_api['error'])
+        ret['error_type'].append(ret_google_api['error_type'])
+    if ret_scrape_google == 10000:
+        ret['error'].append('No data found in Google search')
+        ret['error_type'].append('No data')
     return ret
 
 
@@ -139,8 +147,8 @@ def find_book_google_api(title, author):
 def get_scrape_google(title, author):
     dict = scrape_google.scrape_google(title, author)
 
-    if not dict['title'].lower() in title.lower():
-        return 10000
+    # if not re.sub(r'[\W_]+', '', dict['title'].lower()) in re.sub(r'[\W_]+', '', title.lower()):
+    #     return 10000
 
     try:
         year = int(dict['year'].split(' ')[-1])

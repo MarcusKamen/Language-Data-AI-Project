@@ -94,6 +94,10 @@ def main():
 
         if "Author: " in text:
             author = text.split("Author: ")[1].split("\n")[0]
+            if "by " in author:
+                author = author.split("by ")[1]
+            if "(AKA" in author:
+                author = author.split(") ")[1]
             if author == "Anonymous" or author == "Various":
                 print("Skipping file because author is Anonymous or Various")
                 print_cleaned_text(filename, text)
@@ -134,16 +138,11 @@ def main():
 
         metadata = get_metadata.find_book(title, author)
 
-        if 'error' in metadata and 'year' not in metadata:
-            print(f"Error: {metadata['error']}, {metadata['error_type']}")
-            print('Both APIs failed')
-            continue
-
         if 'error' in metadata:
             print(f"Error: {metadata['error']}, {metadata['error_type']}")
-            print('Only one API failed, continuing with the other')
+            print('Some metadata sources failed')
 
-        if metadata == {'year': 10000, 'place': [], 'first_sentence': []}:
+        if ('year' in metadata and (metadata['year'] > 2000 or metadata['year'] < 1000)) or ('error' in metadata and not 'year' in metadata):
             print("No metadata found, writing to booksnotfound.csv")
 
             # Prepare the entry to write
