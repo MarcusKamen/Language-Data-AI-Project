@@ -96,8 +96,10 @@ def main():
             author = text.split("Author: ")[1].split("\n")[0]
             if "by " in author:
                 author = author.split("by ")[1]
-            if "(AKA" in author:
-                author = author.split(") ")[1]
+            if "(AKA" in author and ")" in author:
+                first_i = author.find("(AKA")
+                second_i = author.find(")", first_i)
+                author = author[:first_i] + author[second_i + 1:]
             if author == "Anonymous" or author == "Various":
                 print("Skipping file because author is Anonymous or Various")
                 print_cleaned_text(filename, text)
