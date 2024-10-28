@@ -30,3 +30,6 @@ def scrape_google(title, author):
 if __name__ == '__main__':
     scrape_google("The Spider","Fergus Hume")
     scrape_google("Uncle Silas", "J.S. Lefanu")
+    scrape_google("The Secret Garden", "Frances Hodgson Burnett")
+    scrape_google("A Popular History of France From The Earliest Times", "Francois Guizot")
+    scrape_google("m", "n")
