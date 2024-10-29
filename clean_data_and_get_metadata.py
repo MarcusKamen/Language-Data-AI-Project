@@ -55,12 +55,12 @@ def main():
         print()
         print(i)
 
-        if i < 5000:
-            i += 1
-            continue
+        # if i < 5000:
+        #     i += 1
+        #     continue
 
-        # if i == 5000:
-        #     break
+        if i == 5000:
+            break
 
         i += 1
         file_path = os.path.join(folder_path, filename)
