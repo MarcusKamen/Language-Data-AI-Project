@@ -89,13 +89,17 @@ def preprocess_text(content):
     return processed_words
 
 # Function to read files from the input folder
-def read_files(input_folder, metadata_folder):
+def read_files(input_folder, metadata_folder, file_start):
     file_data = []
     booksnotfound_file = os.path.join(metadata_folder, 'booksnotfound.csv')
     metadata_file = os.path.join(metadata_folder, 'metadata.csv')
     nofirstsentence_file = os.path.join(metadata_folder, 'nofirstsentence.csv')
     nostartdata_file = os.path.join(metadata_folder, 'nostartdata.csv')
     wrongstarsdata_file = os.path.join(metadata_folder, 'wrongstars.csv')
+
+    found_file = False
+    if file_start == "":
+        found_file = True
 
     with open(booksnotfound_file, 'r', encoding='utf-8', newline='') as f:
         reader = csv.reader(f, quoting=csv.QUOTE_MINIMAL)
@@ -105,6 +109,13 @@ def read_files(input_folder, metadata_folder):
                 first = False
                 continue
             filename = row[0]
+
+            if not found_file:
+                if filename == file_start:
+                    found_file = True
+                else:
+                    continue
+
             title = row[1]
             author = row[2]
 
@@ -130,6 +141,13 @@ def read_files(input_folder, metadata_folder):
                 first = False
                 continue
             filename = row[0]
+
+            if not found_file:
+                if filename == file_start:
+                    found_file = True
+                else:
+                    continue
+
             title = row[1]
             author = row[2]
             year = row[3]
@@ -157,6 +175,13 @@ def read_files(input_folder, metadata_folder):
                 first = False
                 continue
             filename = row[0]
+
+            if not found_file:
+                if filename == file_start:
+                    found_file = True
+                else:
+                    continue
+            
             title = row[1]
             author = row[2]
             year = row[3]
@@ -184,6 +209,13 @@ def read_files(input_folder, metadata_folder):
                 first = False
                 continue
             filename = row[0]
+
+            if not found_file:
+                if filename == file_start:
+                    found_file = True
+                else:
+                    continue
+
             title = row[1]
             author = row[2]
             translator = row[3]
@@ -211,6 +243,13 @@ def read_files(input_folder, metadata_folder):
                 first = False
                 continue
             filename = row[0]
+
+            if not found_file:
+                if filename == file_start:
+                    found_file = True
+                else:
+                    continue
+
             title = row[1]
             author = row[2]
             year = row[3]
@@ -251,8 +290,8 @@ def save_word_counts(word_counts, metadata, output_folder):
         }, f, ensure_ascii=False, indent=4)
 
 
-def main(input_folder, output_folder, metadata_folder):
-    files = read_files(input_folder, metadata_folder)
+def main(input_folder, output_folder, metadata_folder, file_start):
+    files = read_files(input_folder, metadata_folder, file_start)
     
     for file_data in files:
         # Preprocess content (remove punctuation, lemmatize, and stem)
@@ -283,4 +322,10 @@ if __name__ == "__main__":
     metadata_folder = "metadata"  # folder containing metadata files
     output_folder = "data/counts"    # folder to save word count files
 
-    main(input_folder, output_folder, metadata_folder)
+    ans1 = input("Would you like to skip to a specific file (y/n)? ").strip()
+    if ans1.lower().strip() == "y":
+        ans2 = input("What is the file name? ").strip()
+    else:
+        ans2 = ""
+
+    main(input_folder, output_folder, metadata_folder, ans2)

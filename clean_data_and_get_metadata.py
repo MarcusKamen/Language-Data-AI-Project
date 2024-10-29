@@ -25,7 +25,7 @@ def print_cleaned_text(filename, text):
         clean_file.write(text)
 
 
-def main():
+def data_and_metadata(file_name_input):
     folder_path = './data/raw'
     not_found_file_path = './metadata/booksnotfound.csv'
     metadata_file_path = './metadata/metadata.csv'
@@ -33,36 +33,30 @@ def main():
     wrong_stars_file_path = './metadata/wrongstars.csv'
     no_start_file_path = './metadata/nostartdata.csv'
 
-    with open(metadata_file_path, 'w', encoding='utf-8') as metadata_file:
-        metadata_file.write("FileName,Title,Author,Year,Place\n")
+    if file_name_input == "":
+        with open(metadata_file_path, 'w', encoding='utf-8') as metadata_file:
+            metadata_file.write("FileName,Title,Author,Year,Place\n")
 
-    with open(not_found_file_path, 'w', encoding='utf-8') as not_metadata_file:
-        not_metadata_file.write("FileName,Title,Author\n")
+        with open(not_found_file_path, 'w', encoding='utf-8') as not_metadata_file:
+            not_metadata_file.write("FileName,Title,Author\n")
 
-    with open(no_first_sentence_file_path, 'w', encoding='utf-8') as no_first_sentence_file:
-        no_first_sentence_file.write("FileName,Title,Author,Year,Place\n")
-    
-    with open(wrong_stars_file_path, 'w', encoding='utf-8') as wrong_stars_file:
-        wrong_stars_file.write("FileName,Title,Author,Year,Place\n")
+        with open(no_first_sentence_file_path, 'w', encoding='utf-8') as no_first_sentence_file:
+            no_first_sentence_file.write("FileName,Title,Author,Year,Place\n")
+        
+        with open(wrong_stars_file_path, 'w', encoding='utf-8') as wrong_stars_file:
+            wrong_stars_file.write("FileName,Title,Author,Year,Place\n")
 
-    with open(no_start_file_path, 'w', encoding='utf-8') as no_start_file:
-        no_start_file.write("FileName,Title,Author,Translator,Language\n")
+        with open(no_start_file_path, 'w', encoding='utf-8') as no_start_file:
+            no_start_file.write("FileName,Title,Author,Translator,Language\n")
 
-    # set break condition to for loop for testing purposes
-    i = 0
-
+    found_file = False
     for filename in os.listdir(folder_path):
+        # Check if the file name is the one we want to start at
+        if filename != file_name_input and not found_file and file_name_input != "":
+            continue
+
+        found_file = True
         print()
-        print(i)
-
-        # if i < 5000:
-        #     i += 1
-        #     continue
-
-        if i == 5000:
-            break
-
-        i += 1
         file_path = os.path.join(folder_path, filename)
 
         # Check if it's a file (and not a directory)
@@ -99,6 +93,12 @@ def main():
 
         if "Author: " in text:
             author = text.split("Author: ")[1].split("\n")[0]
+            if "by " in author:
+                author = author.split("by ")[1]
+            if "(AKA" in author and ")" in author:
+                first_i = author.find("(AKA")
+                second_i = author.find(")", first_i)
+                author = author[:first_i] + author[second_i + 1:]
             if author == "Anonymous" or author == "Various":
                 print("Skipping file because author is Anonymous or Various")
                 print_cleaned_text(filename, text)
@@ -139,22 +139,17 @@ def main():
 
         metadata = get_metadata.find_book(title, author)
 
-        if 'error' in metadata and 'year' not in metadata:
-            print(f"Error: {metadata['error']}, {metadata['error_type']}")
-            print('Both APIs failed')
-            continue
-
         if 'error' in metadata:
             print(f"Error: {metadata['error']}, {metadata['error_type']}")
-            print('Only one API failed, continuing with the other')
+            print('Some metadata sources failed')
 
-        if metadata == {'year': 10000, 'place': [], 'first_sentence': []}:
+        if ('year' in metadata and (metadata['year'] > 2000 or metadata['year'] < 1000)) or ('error' in metadata and not 'year' in metadata):
             print("No metadata found, writing to booksnotfound.csv")
 
             # Prepare the entry to write
             # entry = f"{title},{author}\n"
 
-            # with open(not_found_file_path, 'r', encoding='utf-8', errors='replace') as not_metadata_file:
+            # with open(not_found_file_path, 'a', encoding='utf-8', errors='replace') as not_metadata_file:
             #     existing_entries = not_metadata_file.readlines()
                     
             # Check if the entry already exists
@@ -236,6 +231,15 @@ def main():
         with open(metadata_file_path, 'a', encoding='utf-8', newline='') as metadata_file:
             writer = csv.writer(metadata_file, quoting=csv.QUOTE_MINIMAL)
             writer.writerow([filename, title, author, year, place])
+
+
+def main():
+    ans1 = input("Would you like to start at a specific file (y/n)? ").strip()
+    if ans1.lower().strip() == "y":
+        ans2 = input("What is the file name (Note: You will only write more to the metadata files rather than writing over)? ").strip()
+    else:
+        ans2 = ""
+    data_and_metadata(ans2)
 
 
 if __name__ == "__main__":
