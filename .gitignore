@@ -188,3 +188,6 @@ fabric.properties
 data
 processed_data
 metadata
+
+# not including models
+models

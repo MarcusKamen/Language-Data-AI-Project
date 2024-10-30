@@ -22,8 +22,9 @@ COUNTS_DATA_PATH = 'data/counts/'      # Path to word count JSON files
 METADATA_PATH = 'metadata/metadata.csv'  # Path to metadata.csv
 PROCESSED_DATA_PATH = 'processed_data/processed_data.csv'  # Output path
 
-MODEL_SAVE_PATH = 'models/text_year_model.h5'
-VECTORIZER_SAVE_PATH = 'models/tfidf_vectorizer.pkl'
+MODEL_SAVE_PATH = 'models/neural/text_year_model.h5'
+VECTORIZER_SAVE_PATH = 'models/neural/tfidf_vectorizer.pkl'
+SCALER_SAVE_PATH = 'models/neural/scaler.pkl'
 
 def load_metadata(metadata_path):
     """Load metadata CSV."""
@@ -132,10 +133,10 @@ def main():
     X_test = scaler.transform(X_test)
 
     # Save the scaler for future use
-    scaler_path = '../models/scaler.pkl'
-    with open(scaler_path, 'wb') as f:
+    os.makedirs(os.path.dirname(SCALER_SAVE_PATH), exist_ok=True)
+    with open(SCALER_SAVE_PATH, 'wb') as f:
         pickle.dump(scaler, f)
-    print(f"Scaler saved to {scaler_path}")
+    print(f"Scaler saved to {SCALER_SAVE_PATH}")
 
     # Build the model
     input_dim = X_train.shape[1]
