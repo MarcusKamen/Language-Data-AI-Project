@@ -166,12 +166,14 @@ def main():
     import matplotlib.pyplot as plt
     import seaborn as sns
 
+    min_test_year = min(y_test)
+    max_test_year = max(y_test)
     plt.figure(figsize=(10, 6))
     sns.scatterplot(x=y_test, y=y_pred, alpha=0.5)
     plt.xlabel('Actual Year')
     plt.ylabel('Predicted Year')
     plt.title('Actual vs Predicted Year')
-    plt.plot([y_test.min(), y_test.max()], [y_test.min(), y_test.max()], 'r--')  # Diagonal line
+    plt.plot([min_test_year, max_test_year], [min_test_year, max_test_year], 'r--')  # Diagonal line
     plt.show()
 
     # Save the trained model

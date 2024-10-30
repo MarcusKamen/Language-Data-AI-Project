@@ -100,6 +100,20 @@ def main(bag_of_words_folder):
         pickle.dump(model, file)
     print(f"Trained model saved to {MODEL_SAVE_PATH}")
 
+    # Visualize Actual vs Predicted Years
+    import matplotlib.pyplot as plt
+    import seaborn as sns
+
+    min_test_year = min(y_test)
+    max_test_year = max(y_test)
+    plt.figure(figsize=(10, 6))
+    sns.scatterplot(x=y_test, y=predictions, alpha=0.5)
+    plt.xlabel('Actual Year')
+    plt.ylabel('Predicted Year')
+    plt.title('Actual vs Predicted Year')
+    plt.plot([min_test_year, max_test_year], [min_test_year, max_test_year], 'r--')  # Diagonal line
+    plt.show()
+
 
 if __name__ == "__main__":
     bag_of_words_folder = 'data/counts'  # Specify the correct folder path
