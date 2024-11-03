@@ -60,5 +60,8 @@ True Date: 1914, Predicted Date: 1829
 4. wrongstars.csv - File is not formatted well to search for first sentence and pull cleaned information
 5. nostartdata.csv - File does not have necessary starter information to be considered (e.g. it is a translation)
 
+Interestingly, google search fails on this:
+Hyacinth,George A. Birmingham
+
 
 

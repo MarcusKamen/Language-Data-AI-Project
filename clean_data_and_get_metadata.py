@@ -143,7 +143,7 @@ def data_and_metadata(file_name_input):
             print(f"Error: {metadata['error']}, {metadata['error_type']}")
             print('Some metadata sources failed')
 
-        if ('year' in metadata and (metadata['year'] > 2000 or metadata['year'] < 1000)) or ('error' in metadata and not 'year' in metadata):
+        if ('year' in metadata and (int(metadata['year']) > 2000 or int(metadata['year']) < 1000)) or ('error' in metadata and not 'year' in metadata):
             print("No metadata found, writing to booksnotfound.csv")
 
             # Prepare the entry to write
