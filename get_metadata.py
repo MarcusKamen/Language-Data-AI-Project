@@ -3,7 +3,6 @@ from requests.exceptions import Timeout, RequestException
 import os
 from dotenv import load_dotenv
 import scrape_google
-# import re
 
 def main():
     title = input("Input the title: ").strip()
@@ -75,23 +74,35 @@ def find_book_open_library(title, author):
 
     for doc in docs:
         try:
-            if doc['title'].lower() == title.lower() and doc['author_name'][0].lower() == author.lower():
-                print("matching book found in API")
-                
-                if (doc['first_publish_year'] < ret['year']):
-                    try:
-                        ret['year'] = doc['first_publish_year']
-                    except:
-                        print("No year data")
+            # found_author = False
+            # if 'author_name' in doc and doc['author_name'][0].lower() == author.lower():
+            #     found_author = True
+            # for author in doc['author_alternative_name']:
+            #     if author.lower() == author.lower():
+            #         found_author = True
+            
+            # if not found_author:
+            #     continue
+
+            # if not doc['title'].lower() in title.lower() and not title.lower() in doc['title'].lower():
+            #     continue
+
+            print("matching book found in API")
+            
+            if (doc['first_publish_year'] < ret['year']):
                 try:
-                    ret['place'] += doc['place'] 
+                    ret['year'] = doc['first_publish_year']
                 except:
-                    print("No place data")
-                try:
-                    for sentence in doc['first_sentence']:
-                        ret['first_sentence'].append(sentence)
-                except:
-                    print('No first sentence')
+                    print("No year data")
+            try:
+                ret['place'] += doc['place'] 
+            except:
+                print("No place data")
+            try:
+                for sentence in doc['first_sentence']:
+                    ret['first_sentence'].append(sentence)
+            except:
+                print('No first sentence')
 
         except:
             print("Error getting book information, skipping book in the list")
@@ -120,7 +131,7 @@ def find_book_google_api(title, author):
         return {'error': str(e), 'error_type': 'Timeout'}
     except RequestException as e:
         return {'error': str(e), 'error_type': 'RequestException'}
-    
+
     if 'items' not in data:
         return ret
     
@@ -140,7 +151,6 @@ def find_book_google_api(title, author):
         except:
             print("Error getting book information, skipping book in the list")
 
-    print(ret)
     return ret
 
 
