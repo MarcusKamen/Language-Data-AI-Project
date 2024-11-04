@@ -74,27 +74,35 @@ def find_book_open_library(title, author):
 
     for doc in docs:
         try:
-            author_correct = doc['author_name'][0].lower() in author.lower() or author.lower() in doc['author_name'][0].lower()
-            for author_alt in doc['author_alternative_name']:
-                author_correct = author_correct or author.lower() in author_alt.lower() or author_alt.lower() in author.lower()
+            author_correct = False
 
-            if doc['title'].lower() in title.lower() or title.lower() in doc['title'].lower() and author_correct:
-                print("matching book found in API")
+            if 'author_name' in doc:
+                author_correct = doc['author_name'][0].lower() in author.lower() or author.lower() in doc['author_name'][0].lower()
                 
-                if (doc['first_publish_year'] < ret['year']):
-                    try:
-                        ret['year'] = doc['first_publish_year']
-                    except:
-                        print("No year data")
+            if 'author_alternative_name' in doc:
+                for author_alt in doc['author_alternative_name']:
+                    author_correct = author_correct or author.lower() in author_alt.lower() or author_alt.lower() in author.lower()
+
+            if not (doc['title'].lower() in title.lower() or title.lower() in doc['title'].lower() and author_correct):
+                print("Book not found in API")
+                continue
+
+            print("matching book found in API")
+            
+            if (doc['first_publish_year'] < ret['year']):
                 try:
-                    ret['place'] += doc['place'] 
+                    ret['year'] = doc['first_publish_year']
                 except:
-                    print("No place data")
-                try:
-                    for sentence in doc['first_sentence']:
-                        ret['first_sentence'].append(sentence)
-                except:
-                    print('No first sentence')
+                    print("No year data")
+            try:
+                ret['place'] += doc['place'] 
+            except:
+                print("No place data")
+            try:
+                for sentence in doc['first_sentence']:
+                    ret['first_sentence'].append(sentence)
+            except:
+                print('No first sentence')
 
         except:
             print("Error getting book information, skipping book in the list")
