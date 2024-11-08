@@ -2,6 +2,7 @@ import pickle
 import os
 import json
 import tensorflow as tf
+import csv
 
 COUNTS_DATA_PATH = 'data/counts/'
 CLEANED_DATA_PATH = 'data/raw_clean/'
@@ -28,6 +29,8 @@ def svm_predict_all():
     actuals = []
     predictions = []
     file_list = []
+    titles = []
+    authors = []
 
     for file in os.listdir(COUNTS_DATA_PATH):
         if not file.endswith('_counts.json'):
@@ -51,14 +54,24 @@ def svm_predict_all():
                 continue
             filename = metadata['filename']
 
+            if not 'title' in metadata:
+                continue
+            title = metadata['title']
+
+            if not 'author' in metadata:
+                continue
+            author = metadata['author']
+
             vectorized_counts = vectorizer.transform([counts])
             pred = svm_model.predict(vectorized_counts)
 
             actuals.append(year)
             predictions.append(pred[0])
             file_list.append(filename)
+            titles.append(title)
+            authors.append(author)
 
-    return file_list, actuals, predictions
+    return file_list, actuals, predictions, titles, authors
 
 
 def ridge_predict_all(counts):
@@ -70,6 +83,8 @@ def ridge_predict_all(counts):
     actuals = []
     predictions = []
     file_list = []
+    titles = []
+    authors = []
 
     for file in os.listdir(COUNTS_DATA_PATH):
         if not file.endswith('_counts.json'):
@@ -93,14 +108,24 @@ def ridge_predict_all(counts):
                 continue
             filename = metadata['filename']
 
+            if not 'title' in metadata:
+                continue
+            title = metadata['title']
+
+            if not 'author' in metadata:
+                continue
+            author = metadata['author']
+
             vectorized_counts = vectorizer.transform([counts])
             pred = ridge_model.predict(vectorized_counts)
 
             actuals.append(year)
             predictions.append(pred[0])
             file_list.append(filename)
+            titles.append(title)
+            authors.append(author)
 
-    return file_list, actuals, predictions
+    return file_list, actuals, predictions, titles, authors
 
 
 def neural_predict_all(test_data):
@@ -113,6 +138,8 @@ def neural_predict_all(test_data):
     actuals = []
     predictions = []
     file_list = []
+    titles = []
+    authors = []
 
     for file in os.listdir(COUNTS_DATA_PATH):
         if file.endswith('_counts.json'):
@@ -132,6 +159,14 @@ def neural_predict_all(test_data):
                 continue
             filename = metadata['filename']
 
+            if not 'title' in metadata:
+                continue
+            title = metadata['title']
+
+            if not 'author' in metadata:
+                continue
+            author = metadata['author']
+
             with open(os.path.join(CLEANED_DATA_PATH, filename), 'r', encoding='utf-8') as g:
                 test_data = g.read()
 
@@ -142,28 +177,31 @@ def neural_predict_all(test_data):
             actuals.append(year)
             predictions.append(pred[0][0])
             file_list.append(filename)
+            titles.append(title)
+            authors.append(author)
 
-    return file_list, actuals, predictions
+    return file_list, actuals, predictions, titles, authors
 
 
 def main(model_name):
     if model_name == 'svm':
         save_path = SVM_PRED_SAVE_PATH
-        file_list, actuals, predictions = svm_predict_all()
+        file_list, actuals, predictions, titles, authors = svm_predict_all()
     elif model_name == 'ridge':
         save_path = RIDGE_PRED_SAVE_PATH
-        file_list, actuals, predictions = ridge_predict_all()
+        file_list, actuals, predictions, titles, authors = ridge_predict_all()
     elif model_name == 'neural':
         save_path = NEURAL_PRED_SAVE_PATH
-        file_list, actuals, predictions = neural_predict_all()
+        file_list, actuals, predictions, titles, authors = neural_predict_all()
     else:
         print("Invalid model name")
         return
     
     with open(save_path, 'w', encoding='utf-8') as f:
-        f.write("Filename,Actual,Predicted\n")
-        for file, actual, pred in zip(file_list, actuals, predictions):
-            f.write(f"{file},{actual},{pred}\n")
+        writer = csv.writer(f, quoting=csv.QUOTE_MINIMAL)
+        writer.writerow(["Filename", "Actual", "Predicted", "Title", "Author"])
+        for file, actual, pred, title, author in zip(file_list, actuals, predictions, titles, authors):
+            writer.writerow([file, actual, pred, title, author])
 
 
 if __name__ == '__main__':
