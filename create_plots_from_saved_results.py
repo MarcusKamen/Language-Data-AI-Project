@@ -1,8 +1,8 @@
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-SVM_PRED_SAVE_PATH = "models/svm/all_results.csv"
-RIDGE_PRED_SAVE_PATH = "models/ridge/all_results.csv"
+SVM_PRED_SAVE_PATH = "final_pickles/svm/all_results.csv"
+RIDGE_PRED_SAVE_PATH = "final_pickles/ridge/all_results.csv"
 NEURAL_PRED_SAVE_PATH = "models/neural/all_results.csv"
 
 def main(model_name):

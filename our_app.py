@@ -40,9 +40,9 @@ def count_words(processed_words):
     return dict(word_counts)
 
 
-SVM_MODEL_PATH = "models/svm/svm_model.pkl"
-SVM_VECTORIZER_PATH = "models/svm/vectorizer.pkl"
-SVM_PRED_SAVE_PATH = "models/svm/all_results.csv"
+SVM_MODEL_PATH = "final_pickles/svm/svm_model.pkl"
+SVM_VECTORIZER_PATH = "final_pickles/svm/vectorizer.pkl"
+SVM_PRED_SAVE_PATH = "final_pickles/svm/all_results.csv"
 
 with open(SVM_MODEL_PATH, 'rb') as file:
     svm_model = pickle.load(file)
