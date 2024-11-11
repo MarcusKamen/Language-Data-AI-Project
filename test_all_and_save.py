@@ -197,7 +197,7 @@ def main(model_name):
         print("Invalid model name")
         return
     
-    with open(save_path, 'w', encoding='utf-8') as f:
+    with open(save_path, 'w', encoding='utf-8', newline='') as f:
         writer = csv.writer(f, quoting=csv.QUOTE_MINIMAL)
         writer.writerow(["Filename", "Actual", "Predicted", "Title", "Author"])
         for file, actual, pred, title, author in zip(file_list, actuals, predictions, titles, authors):

@@ -39,6 +39,21 @@ def count_words(processed_words):
     word_counts = Counter(processed_words)
     return dict(word_counts)
 
+# fail safe for reading files with different encodings
+def get_file_text(file_path):
+    try:
+        with open(file_path, 'r', encoding='utf-8') as file:
+            text = file.read()
+    except UnicodeDecodeError:
+        with open(file_path, 'r', encoding='ISO-8859-1') as file:
+            text = file.read()
+    except Exception as e:
+        print(f"Error reading file: {file_path}")
+        print(e)
+        return None
+
+    return text
+
 
 SVM_MODEL_PATH = "final_pickles/svm/svm_model.pkl"
 SVM_VECTORIZER_PATH = "final_pickles/svm/vectorizer.pkl"
@@ -110,13 +125,18 @@ def random_sentence():
         title = titles[index]
         author = authors[index]
 
-        with open(f'data/raw/{file}', 'r', encoding='utf-8') as f:
-            text = f.read()
+        text = get_file_text(f'data/raw/{file}')
 
-        first_star_loc = text.find("*** START OF THE PROJECT GUTENBERG EBOOK")
-        second_star_loc = text.find("***", first_star_loc + 3)
-        third_star_loc = text.find("*** END OF THE PROJECT GUTENBERG EBOOK", second_star_loc + 3)
-        forth_star_loc = text.find("***", third_star_loc + 3)
+        if text is None:
+            continue
+
+        try:
+            first_star_loc = text.find("*** START OF THE PROJECT GUTENBERG EBOOK")
+            second_star_loc = text.find("***", first_star_loc + 3)
+            third_star_loc = text.find("*** END OF THE PROJECT GUTENBERG EBOOK", second_star_loc + 3)
+            forth_star_loc = text.find("***", third_star_loc + 3)
+        except Exception as e:
+            continue
 
         if forth_star_loc == -1:
             continue
