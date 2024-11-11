@@ -91,7 +91,6 @@ def predict():
     if 'text' not in data:
         return jsonify({'error': 'no text provided'}), 400
     
-    print('k')
     text = data['text']
     processed_words = preprocess_text(text)
     word_counts = count_words(processed_words)
@@ -103,38 +102,44 @@ def predict():
 # curl -X GET http://127.0.0.1:5000/random_sentence
 @app.route('/random_sentence', methods=['GET'])
 def random_sentence():
-    index = random.randint(0, len(file_names) - 1)
-    file = file_names[index]
-    actual = actuals[index]
-    prediction = predictions[index]
-    title = titles[index]
-    author = authors[index]
+    for i in range(10):
+        index = random.randint(0, len(file_names) - 1)
+        file = file_names[index]
+        actual = actuals[index]
+        prediction = predictions[index]
+        title = titles[index]
+        author = authors[index]
 
-    with open(f'data/raw/{file}', 'r', encoding='utf-8') as f:
-        text = f.read()
+        with open(f'data/raw/{file}', 'r', encoding='utf-8') as f:
+            text = f.read()
 
-    first_star_loc = text.find("*** START OF THE PROJECT GUTENBERG EBOOK")
-    second_star_loc = text.find("***", first_star_loc + 3)
-    third_star_loc = text.find("*** END OF THE PROJECT GUTENBERG EBOOK", second_star_loc + 3)
-    forth_star_loc = text.find("***", third_star_loc + 3)
+        first_star_loc = text.find("*** START OF THE PROJECT GUTENBERG EBOOK")
+        second_star_loc = text.find("***", first_star_loc + 3)
+        third_star_loc = text.find("*** END OF THE PROJECT GUTENBERG EBOOK", second_star_loc + 3)
+        forth_star_loc = text.find("***", third_star_loc + 3)
 
-    if forth_star_loc == -1:
-        return jsonify({'error': 'no random sentence found'}), 400
+        if forth_star_loc == -1:
+            continue
+        
+        clean_text = text[second_star_loc:third_star_loc].strip()
+        sentences = clean_text.split('.')
+        cleaned_sentences = [sentence.strip() for sentence in sentences[20:len(sentences) - 20] if len(sentence.strip()) > 100]
+
+        if len(cleaned_sentences) == 0:
+            continue
+
+        random_sentence = random.choice(cleaned_sentences)
+        return jsonify(
+            {
+                'file_name': file,
+                'actual': actual,
+                'prediction': prediction,
+                'random_sentence': random_sentence,
+                'title': title,
+                'author': author
+            }), 200
     
-    clean_text = text[second_star_loc:third_star_loc].strip()
-    sentences = clean_text.split('.')
-    cleaned_sentences = [sentence.strip() for sentence in sentences[20:len(sentences) - 20] if len(sentence.strip()) > 100]
-    random_sentence = random.choice(cleaned_sentences)
-
-    return jsonify(
-        {
-            'file_name': file,
-            'actual': actual,
-            'prediction': prediction,
-            'random_sentence': random_sentence,
-            'title': title,
-            'author': author
-        }), 200
+    return jsonify({'error': 'no random sentence found'}), 400
 
 
 if __name__ == '__main__':
