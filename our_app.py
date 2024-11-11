@@ -1,4 +1,5 @@
-from flask import Flask, jsonify, request
+from flask import Flask, request, jsonify
+from flask_cors import CORS
 import re
 from collections import Counter
 import nltk
@@ -8,6 +9,7 @@ import pickle
 import random
 
 app = Flask(__name__)
+CORS(app)
 
 nltk.download('punkt')
 nltk.download('punkt_tab')
@@ -107,9 +109,12 @@ def predict():
         return jsonify({'error': 'no text provided'}), 400
     
     text = data['text']
+    print(text)
     processed_words = preprocess_text(text)
     word_counts = count_words(processed_words)
     prediction = svm_predict(word_counts)
+
+    print(prediction)
 
     return jsonify({'prediction': prediction}), 200
 

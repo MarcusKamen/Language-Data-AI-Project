@@ -10,3 +10,4 @@ seaborn
 tqdm
 python-dotenv
 flask
+flask_cors
