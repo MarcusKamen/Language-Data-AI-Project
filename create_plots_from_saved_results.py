@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import seaborn as sns
+from scipy.stats import pearsonr
 
 SVM_PRED_SAVE_PATH = "final_pickles/svm/all_results.csv"
 RIDGE_PRED_SAVE_PATH = "final_pickles/ridge/all_results.csv"
@@ -34,6 +35,12 @@ def main(model_name):
             actuals.append(int(parts[1]))
             predictions.append(float(parts[2]))
 
+    # Calculate the Pearson correlation coefficient
+    r_value, _ = pearsonr(actuals, predictions)
+
+    # Print the r value
+    print(f'Pearson correlation coefficient (r): {r_value:.2f}')
+
     # Plot the results
     min_val = min(min(actuals), min(predictions), 1000)
     max_val = max(max(actuals), max(predictions), 2000)
@@ -43,9 +50,11 @@ def main(model_name):
     plt.ylabel('Predicted Year')
     plt.title(f'Actual vs Predicted Year for {model_name}')
     plt.plot([min_val, max_val], [min_val, max_val], 'r--')  # Diagonal line
-    plt.show()
+    plt.xlim(1800, max_val)
+    plt.ylim(1800, max_val)
     plt.savefig(f'models/{model_name}/{model_name}_actual_vs_predicted.png')
     plt.savefig(f'models/{model_name}/{model_name}_actual_vs_predicted.pdf')
+    plt.show()
 
 
 if __name__ == '__main__':

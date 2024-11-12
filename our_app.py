@@ -7,6 +7,8 @@ from nltk.stem import WordNetLemmatizer
 from nltk.stem import PorterStemmer
 import pickle
 import random
+import os
+import re
 
 app = Flask(__name__)
 CORS(app)
@@ -94,6 +96,170 @@ with open(SVM_PRED_SAVE_PATH, 'r', encoding='utf-8') as file:
         authors.append(parts[4])
 
 
+############
+
+TEXT_START_MARKERS = frozenset((
+    "*END*THE SMALL PRINT",
+    "*** START OF THE PROJECT GUTENBERG",
+    "*** START OF THIS PROJECT GUTENBERG",
+    "This etext was prepared by",
+    "E-text prepared by",
+    "Produced by",
+    "Distributed Proofreading Team",
+    "Proofreading Team at http://www.pgdp.net",
+    "http://gallica.bnf.fr)",
+    "      http://archive.org/details/",
+    "http://www.pgdp.net",
+    "by The Internet Archive)",
+    "by The Internet Archive/Canadian Libraries",
+    "by The Internet Archive/American Libraries",
+    "public domain material from the Internet Archive",
+    "Internet Archive)",
+    "Internet Archive/Canadian Libraries",
+    "Internet Archive/American Libraries",
+    "material from the Google Print project",
+    "*END THE SMALL PRINT",
+    "***START OF THE PROJECT GUTENBERG",
+    "This etext was produced by",
+    "*** START OF THE COPYRIGHTED",
+    "The Project Gutenberg",
+    "http://gutenberg.spiegel.de/ erreichbar.",
+    "Project Runeberg publishes",
+    "Beginning of this Project Gutenberg",
+    "Project Gutenberg Online Distributed",
+    "Gutenberg Online Distributed",
+    "the Project Gutenberg Online Distributed",
+    "Project Gutenberg TEI",
+    "This eBook was prepared by",
+    "http://gutenberg2000.de erreichbar.",
+    "This Etext was prepared by",
+    "This Project Gutenberg Etext was prepared by",
+    "Gutenberg Distributed Proofreaders",
+    "Project Gutenberg Distributed Proofreaders",
+    "the Project Gutenberg Online Distributed Proofreading Team",
+    "**The Project Gutenberg",
+    "*SMALL PRINT!",
+    "More information about this book is at the top of this file.",
+    "tells you about restrictions in how the file may be used.",
+    "l'authorization à les utilizer pour preparer ce texte.",
+    "of the etext through OCR.",
+    "*****These eBooks Were Prepared By Thousands of Volunteers!*****",
+    "We need your donations more than ever!",
+    " *** START OF THIS PROJECT GUTENBERG",
+    "****     SMALL PRINT!",
+    '["Small Print" V.',
+    '      (http://www.ibiblio.org/gutenberg/',
+    'and the Project Gutenberg Online Distributed Proofreading Team',
+    'Mary Meehan, and the Project Gutenberg Online Distributed Proofreading',
+    '                this Project Gutenberg edition.',
+))
+
+
+TEXT_END_MARKERS = frozenset((
+    "*** END OF THE PROJECT GUTENBERG",
+    "*** END OF THIS PROJECT GUTENBERG",
+    "***END OF THE PROJECT GUTENBERG",
+    "End of the Project Gutenberg",
+    "End of The Project Gutenberg",
+    "Ende dieses Project Gutenberg",
+    "by Project Gutenberg",
+    "End of Project Gutenberg",
+    "End of this Project Gutenberg",
+    "Ende dieses Projekt Gutenberg",
+    "        ***END OF THE PROJECT GUTENBERG",
+    "*** END OF THE COPYRIGHTED",
+    "End of this is COPYRIGHTED",
+    "Ende dieses Etextes ",
+    "Ende dieses Project Gutenber",
+    "Ende diese Project Gutenberg",
+    "**This is a COPYRIGHTED Project Gutenberg Etext, Details Above**",
+    "Fin de Project Gutenberg",
+    "The Project Gutenberg Etext of ",
+    "Ce document fut presente en lecture",
+    "Ce document fut présenté en lecture",
+    "More information about this book is at the top of this file.",
+    "We need your donations more than ever!",
+    "END OF PROJECT GUTENBERG",
+    " End of the Project Gutenberg",
+    " *** END OF THIS PROJECT GUTENBERG",
+))
+
+
+LEGALESE_START_MARKERS = frozenset(("<<THIS ELECTRONIC VERSION OF",))
+LEGALESE_END_MARKERS = frozenset(("SERVICE THAT CHARGES FOR DOWNLOAD",))
+
+
+def strip_headers(text):
+    """
+    Remove lines that are part of the Project Gutenberg header or footer.
+
+    Note: this function is a port of the C++ utility by Johannes Krugel. The
+    original version of the code can be found at:
+    http://www14.in.tum.de/spp1307/src/strip_headers.cpp
+
+    Args:
+        text (unicode): The body of the text to clean up.
+
+    Returns:
+        unicode: The text with any non-text content removed.
+
+    """
+    lines = text.splitlines()
+    sep = str(os.linesep)
+
+    out = []
+    i = 0
+    footer_found = False
+    ignore_section = False
+
+    for line in lines:
+        reset = False
+
+        if i <= 600:
+            # Check if the header ends here
+            if any(line.startswith(token) for token in TEXT_START_MARKERS):
+                reset = True
+
+            # If it's the end of the header, delete the output produced so far.
+            # May be done several times, if multiple lines occur indicating the
+            # end of the header
+            if reset:
+                out = []
+                continue
+
+        if i >= 100:
+            # Check if the footer begins here
+            if any(line.startswith(token) for token in TEXT_END_MARKERS):
+                footer_found = True
+
+            # If it's the beginning of the footer, stop output
+            if footer_found:
+                break
+
+        if any(line.startswith(token) for token in LEGALESE_START_MARKERS):
+            ignore_section = True
+            continue
+        elif any(line.startswith(token) for token in LEGALESE_END_MARKERS):
+            ignore_section = False
+            continue
+
+        if not ignore_section:
+            out.append(line.rstrip(sep))
+            i += 1
+
+    return sep.join(out)
+
+
+file_skip_list = ['61063-0.txt']
+chapter_list = ['Chapter', 'CHAPTER']
+
+def chapter_in(sentence):
+    for chapter in chapter_list:
+        if chapter in sentence:
+            return True
+    return False
+
+
 # curl -X GET http://127.0.0.1:5000/
 @app.route('/', methods=['GET'])
 def index():
@@ -122,9 +288,13 @@ def predict():
 # curl -X GET http://127.0.0.1:5000/random_sentence
 @app.route('/random_sentence', methods=['GET'])
 def random_sentence():
-    for i in range(10):
+    for _ in range(10):
         index = random.randint(0, len(file_names) - 1)
         file = file_names[index]
+
+        if file in file_skip_list:
+            continue
+
         actual = actuals[index]
         prediction = predictions[index]
         title = titles[index]
@@ -135,20 +305,9 @@ def random_sentence():
         if text is None:
             continue
 
-        try:
-            first_star_loc = text.find("*** START OF THE PROJECT GUTENBERG EBOOK")
-            second_star_loc = text.find("***", first_star_loc + 3)
-            third_star_loc = text.find("*** END OF THE PROJECT GUTENBERG EBOOK", second_star_loc + 3)
-            forth_star_loc = text.find("***", third_star_loc + 3)
-        except Exception as e:
-            continue
-
-        if forth_star_loc == -1:
-            continue
-        
-        clean_text = text[second_star_loc:third_star_loc].strip()
-        sentences = clean_text.split('.')
-        cleaned_sentences = [sentence.strip() for sentence in sentences[20:len(sentences) - 20] if len(sentence.strip()) > 100]
+        clean_text = strip_headers(text).strip()
+        sentences = re.split(r'[.!?]', clean_text)
+        cleaned_sentences = [sentence.strip() for sentence in sentences[20:len(sentences) - 20] if len(sentence.strip()) > 100 and len(sentence.strip()) < 500 and not chapter_in(sentence)]
 
         if len(cleaned_sentences) == 0:
             continue

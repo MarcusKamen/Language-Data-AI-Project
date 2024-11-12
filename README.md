@@ -64,4 +64,16 @@ Interestingly, google search fails on this:
 Hyacinth,George A. Birmingham
 
 
+Intesteresting books that have bad data but our model does better:
+
+49045-0.txt,1200,1895.8853209767926,The Expositor's Bible: The Book of Deuteronomy,Andrew Harper
+Actually written 1903
+
+6038.txt,1200,1898.5478497655572,The Great Doctrines of the Bible,Rev. William Evans
+Actually written 1912
+
+## Results
+
+Input the model you would like to use and save all results (svm / ridge / neural): svm
+Pearson correlation coefficient (r): 0.64
 
