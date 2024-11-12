@@ -183,7 +183,6 @@ def data_and_metadata(file_name_input):
     not_found_file_path = './metadata/booksnotfound.csv'
     metadata_file_path = './metadata/metadata.csv'
     no_first_sentence_file_path = './metadata/nofirstsentence.csv'
-    wrong_stars_file_path = './metadata/wrongstars.csv'
     no_start_file_path = './metadata/nostartdata.csv'
 
     if file_name_input == "":
@@ -195,9 +194,6 @@ def data_and_metadata(file_name_input):
 
         with open(no_first_sentence_file_path, 'w', encoding='utf-8') as no_first_sentence_file:
             no_first_sentence_file.write("FileName,Title,Author,Year,Place\n")
-        
-        with open(wrong_stars_file_path, 'w', encoding='utf-8') as wrong_stars_file:
-            wrong_stars_file.write("FileName,Title,Author,Year,Place\n")
 
         with open(no_start_file_path, 'w', encoding='utf-8') as no_start_file:
             no_start_file.write("FileName,Title,Author,Translator,Language\n")

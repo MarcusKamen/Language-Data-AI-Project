@@ -192,7 +192,3 @@ metadata
 # not including models
 models
 final_pickles
-
-fixlines.py
-wrong_star_check.py
-wrong_stars.txt
