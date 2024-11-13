@@ -9,6 +9,7 @@ import pickle
 import random
 import os
 import re
+import csv
 
 app = Flask(__name__)
 CORS(app)
@@ -74,7 +75,7 @@ def svm_predict(counts):
     return prediction[0]
 
 with open(SVM_PRED_SAVE_PATH, 'r', encoding='utf-8') as file:
-    lines = file.readlines()
+    reader = csv.reader(file, quoting=csv.QUOTE_MINIMAL)
     first = True
     file_names = []
     actuals = []
@@ -82,13 +83,12 @@ with open(SVM_PRED_SAVE_PATH, 'r', encoding='utf-8') as file:
     titles = []
     authors = []
     
-    for line in lines:
+    for parts in reader:
         # skip first line
         if first:
             first = False
             continue
 
-        parts = line.strip().split(',')
         file_names.append(parts[0])
         actuals.append(int(parts[1]))
         predictions.append(float(parts[2]))

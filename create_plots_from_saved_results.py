@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import seaborn as sns
 from scipy.stats import pearsonr
+import csv
 
 SVM_PRED_SAVE_PATH = "final_pickles/svm/all_results.csv"
 RIDGE_PRED_SAVE_PATH = "final_pickles/ridge/all_results.csv"
@@ -18,19 +19,18 @@ def main(model_name):
         return
     
     with open(save_path, 'r', encoding='utf-8') as file:
-        lines = file.readlines()
+        reader = csv.reader(file, quoting=csv.QUOTE_MINIMAL)
         first = True
         file_names = []
         actuals = []
         predictions = []
         
-        for line in lines:
+        for parts in reader:
             # skip first line
             if first:
                 first = False
                 continue
 
-            parts = line.strip().split(',')
             file_names.append(parts[0])
             actuals.append(int(parts[1]))
             predictions.append(float(parts[2]))

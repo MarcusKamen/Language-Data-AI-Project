@@ -32,7 +32,7 @@ def scrape_google(title, author):
     except Exception as e:
         print(f'{url}: ' + str(e))
         print()
-        return {"error: " + str(e)}
+        return {"error" : str(e)}
 
 if __name__ == '__main__':
     scrape_google("The Spider","Fergus Hume")
