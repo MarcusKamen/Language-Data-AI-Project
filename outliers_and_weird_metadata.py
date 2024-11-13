@@ -1,4 +1,5 @@
 import csv
+import json
 
 SVM_PRED_SAVE_PATH = "final_pickles/svm/all_results.csv"
 RIDGE_PRED_SAVE_PATH = "final_pickles/ridge/all_results.csv"
@@ -36,14 +37,22 @@ def main(model_name):
             titles.append(parts[3])
             authors.append(parts[4])
 
-    with open('outliers_and_weird_data.csv', 'w', encoding='utf-8', newline='') as file:
+    with open('weird_metadata.csv', 'w', encoding='utf-8', newline='') as file:
         writer = csv.writer(file, quoting=csv.QUOTE_MINIMAL)
         writer.writerow(['Filename', 'Actual', 'Predicted', 'Title', 'Author'])
         for i in range(len(file_names)):
-            # if actuals[i] >= 1950:
-            #     writer.writerow([file_names[i], actuals[i], predictions[i], titles[i], authors[i]])
-            if actuals[i] != 1800 and (abs(actuals[i] - predictions[i]) > 100 or actuals[i] < 1600 or actuals[i] > 1990):
+            if abs(actuals[i] - predictions[i]) > 100 or actuals[i] < 1600 or actuals[i] > 1990:
                 writer.writerow([file_names[i], actuals[i], predictions[i], titles[i], authors[i]])
+
+    counts = {}
+    for i in range(len(file_names)):
+        if actuals[i] not in counts:
+            counts[actuals[i]] = 0
+        counts[actuals[i]] += 1
+
+    counts = dict(sorted(counts.items(), key=lambda item: item[1], reverse=True))
+    with open('outliers.json', 'w', encoding='utf-8') as file:
+        json.dump(counts, file, indent=4)
     
 if __name__ == '__main__':
     model_name = input("Input the model you would like to check outliers and weird metadata (svm / ridge / neural): ").strip()

@@ -1,0 +1,315 @@
+Filename,Actual,Predicted,Title,Author
+1080-0.txt,1729,1896.118399098609,A Modest Proposal,Jonathan Swift
+10800-0.txt,1624,1873.2991780863856,The Anatomy of Melancholy,Democritus Junior
+10827-0.txt,1531,1895.9301292766966,Discourses on the First Decade of Titus Livius,Niccolo Machiavelli
+1145-0.txt,1800,1906.2764481960646,Rupert of Hentzau,Anthony Hope
+1147-0.txt,1743,1845.465269151295,From This World to the Next,Henry Fielding
+1192-0.txt,1710,1881.476517552097,The Old Bachelor,William Congreve
+1244-0.txt,1695,1879.8562778699145,Love for Love,William Congreve
+1251-0.txt,1485,1872.2857421442811,"Le Morte D’Arthur, Volume I (of II)",Thomas Malory
+1252-0.txt,1485,1901.6725652790994,"Le Morte D’Arthur, Volume II (of II)",Thomas Malory
+1292-0.txt,1700,1875.1336560331526,The Way of the World,William Congreve
+13586-0.txt,1764,1899.0065872051887,Poems,Samuel Rogers
+1382-0.txt,1800,1902.1034397710528,"Poems, Volume 2 [of 3]",George Meredith
+140-0.txt,1707,1904.6338928020607,The Jungle,Upton Sinclair
+14495-0.txt,1723,1871.88606589345,De Carmine Pastorali,Rene Rapin
+14504-0.txt,1664,1811.9352238624097,Experiments and Considerations Touching Colours,Robert Boyle
+1469-0.txt,1783,1905.9887772984005,Poems,Francis Thompson
+147-0.txt,1766,1874.4293084863486,Common Sense,Thomas Paine
+1471-0.txt,1783,1887.720478423598,New Poems,Francis Thompson
+15491-0.txt,1665,1830.5779145497597,Micrographia,Robert Hooke
+1625-0.txt,1800,1905.904877950637,The Frozen Deep,Wilkie Collins
+1807-0.txt,2000,1915.926311859219,The Lost House,Richard Harding Davis
+18781-0.txt,1598,1894.2317803420353,Hero and Leander,Christopher Marlowe
+19213-0.txt,1786,1904.2733185791922,"The History of England in Three Volumes, Vol.I., Part C.",David Hume
+1962-0.txt,1595,1865.2820151032665,A Defence of Poesie and Poems,Philip Sidney
+20-0.txt,1667,1818.760809163087,Paradise Lost,John Milton
+20257-0.txt,1759,1895.239295012925,A Political Romance,Laurence Sterne
+2130-0.txt,1516,1825.868536165041,Utopia,Thomas More
+21333-0.txt,1623,1895.1846734191263,Doom Castle,Neil Munro
+21410-0.txt,1668,1883.5496729573858,The Isle Of Pines (1668),Henry Neville
+2160-0.txt,1641,1796.3361992393163,The Expedition of Humphry Clinker,Tobias Smollett
+220-0.txt,1611,1905.3384310598417,The Secret Sharer,Joseph Conrad
+2363-0.txt,1692,1866.9176599452817,Incognita,William Congreve
+2421-0.txt,1728,1891.7817580219178,The Beggar's Opera,John Gay
+2677.txt,1997,1933.715851118133,Epistles from Pap: Letters from the man known as 'The Will,"J. Frank Durham, Edited by"
+2801-0.txt,1656,1843.555592149143,The Commonwealth of Oceana,James Harrington
+300.txt,1776,1905.448104045635,United States Declaration of Independence,Thomas Jefferson
+3207-0.txt,1651,1901.567092531404,Leviathan,Thomas Hobbes
+3234.txt,1734,1888.157856760962,The Letters of the Younger Pliny,Pliny the Younger
+3270-0.txt,1688,1872.516087188888,The Jerusalem Sinner Saved,John Bunyan
+3331.txt,1666,1772.6410665562116,The Diary of Samuel Pepys,Samuel Pepys
+3414.txt,2000,1908.1947488849146,"The South Pole, Volume 1",Roald Amundsen
+3548-0.txt,1685,1858.0587246262735,The Pharisee and the Publican,John Bunyan
+369-0.txt,1738,1901.2430196217754,The Outlaw of Torn,Edgar Rice Burroughs
+37012-0.txt,1706,1884.27592573425,The Recruiting Officer,George Farquhar
+3719-0.txt,2000,1897.5387533808362,The Mistletoe Bough,Anthony Trollope
+383-0.txt,1773,1880.2797303073826,She Stoops to Conquer,Oliver Goldsmith
+3841-0.txt,1628,1874.4366202819697,"Memoirs of Marguerite de Valois, Complete","Marguerite de Valois, Queen of Navarre"
+4200-0.txt,1665,1773.411883602791,"Diary of Samuel Pepys, Complete",Samuel Pepys
+45777-0.txt,1993,1837.122921276262,"The Works of Aphra Behn, Volume VI",Aphra Behn
+46879-0.txt,1702,1893.073667889963,The Miner's Friend,Thomas Savery
+46879-8.txt,1702,1893.0736678899611,The Miner's Friend,Thomas Savery
+46879.txt,1702,1893.0753728755187,The Miner's Friend,Thomas Savery
+46960-8.txt,1991,1909.5751118795297,Beasts & Men,Jean de Bosschère
+46960.txt,1991,1909.5760931604218,Beasts & Men,Jean de Bosschere
+46990-0.txt,1789,1890.3634249697034,The Guinea Voyage,James Field Stanfield
+46990-8.txt,1789,1890.3634249697034,The Guinea Voyage,James Field Stanfield
+46990.txt,1789,1890.3636734535735,The Guinea Voyage,James Field Stanfield
+47082-0.txt,1634,1834.2237362929827,New Englands Prospect,William Wood
+47082-8.txt,1634,1834.2360587967778,New Englands Prospect,William Wood
+47108-0.txt,1996,1916.0436360390463,Deserts,A. S. Walker
+47108-8.txt,1996,1916.0437508436514,Deserts,A. S. Walker
+47108.txt,1996,1916.062409825762,Deserts,A. S. Walker
+47111-8.txt,1768,1892.241739475154,Letters from a Farmer in Pennsylvania to the Inhabitants of the British Colonies,John Dickinson
+47111.txt,1768,1892.2464788011016,Letters from a Farmer in Pennsylvania to the Inhabitants of the British Colonies,John Dickinson
+47130-8.txt,1748,1890.9666782464187,A Voyage Round the World,George Anson
+47130.txt,1748,1890.9666688215252,A Voyage Round the World,George Anson
+47335-8.txt,1778,1897.7664402006762,Food for the Mind,John-the-Giant-Killer
+47340-0.txt,1994,1911.811807371253,Earthquakes,Kaye M. Shedlock
+47340.txt,1994,1911.812102984441,Earthquakes,Kaye M. Shedlock
+47379-8.txt,1783,1886.427079175078,A Bold Stroke for a Husband,Hannah Cowley
+47462-0.txt,1634,1853.5131735369066,Castara,William Habington
+47509-0.txt,1675,1867.242323651503,An Essay to the Restoring of our Decayed Trade.,Joseph Trevers
+47518-8.txt,1611,1878.6336369155076,Shakespeare's Comedy of The Tempest,William Shakespeare
+47518.txt,1611,1878.6342783096622,Shakespeare's Comedy of The Tempest,William Shakespeare
+47604-0.txt,1780,1887.4598263325902,The Belle's Stratagem,Hannah Cowley
+47638-8.txt,1779,1894.893493448541,A treatise on the culture of the tobacco plant with the manner in which it is usually cured,Jonathan Carver
+47765-0.txt,1579,1870.627761972486,A Profitable Instruction of the Perfite Ordering of Bees,Thomas Hyll
+47787-0.txt,1564,1848.6334065882997,Brief Lives (Vol. 1 of 2),John Aubrey
+47791-0.txt,1564,1872.2580957589169,Brief Lives (Vol. 2 of 2),John Aubrey
+47837-0.txt,1634,1859.5588514466967,The Mysteryes of Nature and Art,John Bate
+47960-0.txt,1597,1887.9070291163046,Shakespeare's Tragedy of Romeo and Juliet,William Shakespeare
+48250-8.txt,1559,1819.3507174103001,The History of the Reformation of Religion in Scotland,John Knox
+48349-8.txt,1723,1889.7859001484676,The religious and loyal subject's duty considered: with regard to the present Government and the Revolution,Isaac Terry
+48370-8.txt,1710,1894.9614646134128,A sermon preach'd before the Right Honourable the Lord-Mayor : the aldermen and citizens of London,Andrew Snape
+48440-8.txt,1633,1851.3219631293011,The Plays of Philip Massinger,Philip Massinger
+48465-0.txt,1816,1921.8827379905479,United States Steel,Arundel Cotter
+48528-8.txt,1768,1906.7935443327774,"The great probability of a North West Passage: deduced from observations on the letter of Admiral de Fonte, who sailed from the",Thomas Jefferys
+48714.txt,1994,1930.9075361232021,Cape Gloucester: The Green Inferno,Bernard C. Nalty
+48796-0.txt,1969,1861.2303489191281,Index Expurgatorius Anglicanus,W. H. Hart
+48807-0.txt,1991,1947.453820291017,First Offensive: The Marine Campaign for Guadalcanal,Henry I. Shaw
+48808-0.txt,1997,1937.1774214833222,Top of the Ladder: Marine Operations in the Northern Solomons,John C. Chapin
+48810-0.txt,1992,1929.6016695393478,A Magnificent Fight: Marines in the Battle for Wake Island,Robert J. Cressman
+48811-0.txt,1995,1945.1518345786374,From Makin to Bougainville: Marine Raiders in the Pacific War,Jon T. Hoffman
+48836-0.txt,1993,1940.9210288869585,Across The Reef: The Marine assault of Tarawa,Joseph H. Alexander
+48898-0.txt,1994,1928.2387092883982,Breaking the Outer Ring: Marine Landings in the Marshall Islands,John C. Chapin
+48899-0.txt,1994,1934.6270486739975,Breaching the Mariana: The Battle for Saipan,John C. Chapin
+48936-0.txt,1993,1931.932321267811,Up The Slot: Marines in the Central Solomons,Charles D. Melson
+48969-0.txt,1994,1932.4453534993795,A Close Encounter: The Marine Landing on Tinian,Richard Harwood
+49032-0.txt,1996,1933.7932102065981,Bloody Beaches: The Marines at Peleliu,Gordon D. Gayle
+49045-0.txt,1200,1895.8853209767926,The Expositor's Bible: The Book of Deuteronomy,Andrew Harper
+49056-0.txt,1992,1935.9174256828637,Liberation: Marines in the Recapture of Guam,Cyril J. O'Brien
+49080-0.txt,1994,1908.181628198947,Closing In: Marines in the Seizure of Iwo Jima,Joseph H. Alexander
+49296-8.txt,1800,1905.3624339985959,Retained for the Defence,John Oxenford
+49319-8.txt,1721,1885.2383569334718,An Essay on Contagious Diseases,Clifton Wintringham
+49323-0.txt,1650,1898.9532384073184,A Satyr Against Hypocrites,John Phillips
+4937.txt,1663,1831.7056086577863,Hudibras,Samuel Butler
+49416-0.txt,1997,1923.245307014448,The Airship Boys' Ocean Flyer,H. L. Sayler
+49461-8.txt,1716,1873.4473346419852,Bartholomew Fair,Ben Jonson
+49476-0.txt,1776,1882.3259607351042,Thoughts on General and Partial Inoculations,Thomas Dimsdale
+49564-0.txt,1730,1891.3875089349904,A Treatise of Buggs,John Southall
+49580-0.txt,1594,1818.5527522848686,Wallace,Henry the Minstrel
+49602-8.txt,1770,1891.91234847514,The Lame Lover,Samuel Foote
+49636-0.txt,1601,1883.996770243932,Satiro-Mastix,Thomas Dekker
+49723-0.txt,1728,1881.6066744866446,The Poems of Oliver Goldsmith,Oliver Goldsmith
+50104-0.txt,1800,1906.7882674325535,Jessica's First Prayer--Jessica's Mother,Hesba Stretton
+50108-0.txt,1761,1882.3306973082022,A Father's Legacy to his Daughters,John Gregory
+50143-0.txt,1634,1781.7293911520383,"A Collection of Emblemes, Ancient and Moderne",George Wither
+50212-0.txt,1702,1906.3865017954874,Dionysius of Halicarnassus On Literary Composition,Dionysius of Halicarnassus
+50416-0.txt,1665,1808.8792318491614,"The English Rogue: Described in the Life of Meriton Latroon, A Witty Extravagant",Francis Kirkman
+5048.txt,2000,1942.5375337955088,State of the Union Addresses of William J. Clinton,William J. Clinton
+50500.txt,1770,1904.1935963554756,The Deserted Village,Oliver Goldsmith
+50693-0.txt,2000,1914.3856677411827,Battlefields of the Marne 1914,Michelin & Cie
+50808-0.txt,1728,1920.6483431037086,Eutropius,Flavius Eutropius
+50922-0.txt,1795,1896.2535243702866,Perpetual Peace,Immanuel Kant
+50949-0.txt,1665,1818.4268684356355,"The English Rogue: Continued in the Life of Meriton Latroon, and Other Extravagants",Richard Head and Francis Kirkman
+51017-0.txt,1786,1902.3979281957747,Anecdotes of the Learned Pig,James Boswell and Hester Lynch Piozzi
+51228-0.txt,1800,1916.6020554956308,The Flower-Patch Among the Hills,Flora Klickmann
+51334-0.txt,1753,1890.262854355096,The Story of Elizabeth Canning Considered,John Hill
+5142-0.txt,1750,1905.5979407321313,Graustark,George Barr McCutcheon
+51457-8.txt,1711,1894.2779360079892,"A narrative of the sufferings, preservation and deliverance, of Capt. John Dean and company",John Dean
+51493.txt,1992,1908.9929567964184,Kreativity For Kats,Fritz Leiber
+51687.txt,1997,1911.538793553234,The Spy in the Elevator,Donald E. Westlake
+51967-8.txt,1751,1857.8290210671269,"The Life and Adventures of Peter Wilkins, Complete",Robert Paltock
+5198.txt,1781,1896.8911762937764,The Library,George Crabbe
+51985-0.txt,1810,1923.7589959749807,The Trufflers,Samuel Merwin
+51985-8.txt,1810,1923.7589959749798,The Trufflers,Samuel Merwin
+52147-0.txt,1577,1836.2400255994166,"Holinshed's Chronicles of England, Scotland, and Ireland",Raphael Holinshed
+5225-0.txt,1575,1878.6745829963054,"The Satyricon, Complete",Petronius Arbiter
+52298-0.txt,1996,1906.6877374947737,Budge & Toddie,John Habberton
+5232-0.txt,1603,1858.608958948665,Sejanus His Fall,Ben Jonson
+52395-0.txt,1784,1907.2811403958392,Journal of my journey over the mountains,George Washington
+52439-0.txt,1746,1888.1289369010015,An Essay to Shew the Cause of Electricity,John Freke
+52494-0.txt,1665,1828.1273410550007,"The English Rogue: Continued in the Life of Meriton Latroon, And other Extravagants, Comprehending the most Eminent Cheats of Both Sexes",Francis Kirkman
+52541-0.txt,1763,1883.3855812443755,An Essay on the Effects of Opium. Considered as a Poison,John Awsiter
+52603-0.txt,1722,1844.6471271157227,"The History and Remarkable Life of the Truly Honourable Colonel Jacque, Commonly called Colonel Jack",Daniel Defoe
+52603-8.txt,1722,1844.6682595892119,"The History and Remarkable Life of the Truly Honourable Colonel Jacque, Commonly called Colonel Jack",Daniel Defoe
+52639-0.txt,1625,1837.656994512801,Moses and Aaron,Thomas Goodwin
+52657.txt,1682,1890.3349360613397,"A Treatise of Cleanness in Meats and Drinks,",Tho. Tryon
+52722-0.txt,1764,1897.4905195365625,An account of the manner of inoculating for the small pox in the East Indies,J. Z. Holwell
+52769.txt,1711,1897.7352038870024,"A True Account of the Voyage of the Nottingham-Galley of London,",Christopher Langman
+52902-0.txt,1750,1898.3465426372736,A Naval Expositior,Thomas Riley Blanckley
+53032-0.txt,1999,1912.762316485284,William—An Englishman,Cicely Hamilton
+53083-0.txt,1729,1839.5231014589212,The Antiquities of Constantinople,Pierre Gilles
+53103-0.txt,1489,1905.0821273067595,Æsop's Fables,Æsop
+53202-0.txt,1702,1838.2515791450976,A Mechanical Account of Poisons in Several Essays,Richard Mead
+53216-0.txt,1753,1888.103753050073,"An Essay on the Incubus, or Night-mare",John Bond
+53300-0.txt,1800,1904.1247440693323,Nature's Teachings,J. G. Wood
+53346-0.txt,1736,1886.6254263249184,The Analogy of Religion to the Constitution and Course of Nature,Joseph Butler
+53679-8.txt,1664,1834.0672743588277,"Philosophical Letters: or, modest Reflections upon some Opinions in Natural Philosophy",Margaret Cavendish
+53839-0.txt,1800,1908.074851534249,Tragic Romances,Fiona Macleod
+54001-0.txt,1667,1820.5406759239938,"Il nipotismo di Roma, or, The History of the Popes Nephews",Gregorio Leti
+54043-0.txt,1708,1819.4758763664627,The Life of Cardinal Wolsey,George Cavendish
+54048-0.txt,1800,1902.0873844216298,The Romany Rye,George Borrow
+54058-8.txt,1796,1905.163337171016,Love Poems and Others,D. H. Lawrence
+5419.txt,1743,1874.3564625214815,"The Satires, Epistles, and Art of Poetry",Horace
+5430.txt,1747,1878.1928236093195,Preface to a Dictionary of the English Language,Samuel Johnson
+5432.txt,1652,1884.4198302512261,Odes and Carmen Saeculare of Horace, Horace
+54425-0.txt,1648,1807.1871380068133,"The English-American his Travail by Sea and Land: or, A New Survey of the West-India's",Thomas Gage
+54474-8.txt,1800,1906.7919663266948,New Zealand,Reginald Horsley
+54484-0.txt,1800,1904.1579009231666,Cardinal Pole,William Harrison Ainsworth
+54505-8.txt,1720,1888.9291712062445,Poems,William Anderson
+54505.txt,1720,1888.9321574030027,Poems,William Anderson
+54596-8.txt,1800,1904.7398280355437,Nelly Channell,Sarah Doudney
+54843-0.txt,1720,1892.4415383932658,"A Short Discourse Concerning Pestilential Contagion, and the Methods to Be Used to Prevent It",Richard Mead
+54911-0.txt,1748,1884.7432297822313,An Account of the Sore Throat Attended With Ulcers,John Fothergill
+54925-8.txt,1726,1892.5926102763985,"The Friendly Daemon, or the Generous Apparition",Daniel Defoe
+54984-0.txt,1694,1810.5336937164677,"A serious proposal to the Ladies, for the advancement of their true and greatest interest (In Two Parts)",Mary Astell
+5500-0.txt,1605,1829.625602453885,The Advancement of Learning,Francis Bacon
+55002-0.txt,1996,1913.4463999989903,NetWorld!,David H. Rothman
+55010-0.txt,1995,1938.268690376572,Charlestown Navy Yard,National Park Service
+55010-8.txt,1995,1938.2686817136523,Charlestown Navy Yard,National Park Service
+55170-0.txt,1762,1883.4120689003425,The Prophecy of Merlin and Other Poems,John Reade
+55538-0.txt,1712,1821.47012888244,A Cruising Voyage Around the World,Woodes Rogers
+55621-0.txt,1608,1901.2399218672606,Humors Looking Glasse,Samuel Rowlands
+55814.txt,1790,1907.6728803438778,"The Comic Adventures of Old Mother Hubbard, and Her Dog",Sarah Catherine Martin
+55922-0.txt,1722,1845.9823784891819,Richard Steele's Plays,Richard Steele
+56053-0.txt,1662,1870.677626977427,The Day of Doom,Michael Wigglesworth
+5608.txt,1729,1870.6867467176176,The Trial of the Witnessses of the Resurrection of Jesus Christ,Thomas Sherlock
+56083-0.txt,1992,1932.683285190076,"De Soto, Coronado, Cabrillo",David Lavender
+5611-0.txt,1575,1846.9171965698742,The Satyricon,Petronius Arbiter
+56347.txt,1624,1796.9282743985873,"The General Historie of Virginia, New England and The Summer Isles  (Vol. I)",John Smith
+56463-0.txt,1618,1837.8471166204263,Bacon's Essays and Wisdom of the Ancients,Francis Bacon
+56487-0.txt,1678,1795.0417228491556,An Apology for the True Christian Divinity,Robert Barclay
+56784-0.txt,1762,1905.0922431417061,The Theory and Practice of Brewing,Michael Combrune
+56803-0.txt,1784,1891.5152842769005,Physical Amusements and Diverting Experiments,Giuseppe Pinetti
+56926-0.txt,1750,1854.0135247209384,Robin Hood,Joseph Ritson
+56978-0.txt,1800,1904.1549152647503,The Book of the Feet,Joseph Sparkes Hall
+57020-0.txt,1696,1875.7315762875269,"The Regulating Silver Coin, Made Practicable and Easie, to the Government and Subject",Samuel Pratt
+57576-0.txt,1729,1896.4144128053435,A Method of Tanning without Bark,William Maple
+57596-0.txt,1696,1844.6070471482074,An essay in defence of the female sex,Judith Drake
+57678-0.txt,1762,1885.0242138979331,"Elements of Criticism, Volume I.",Henry Home
+57679-0.txt,1762,1897.3671565842321,"Elements of Criticism, Volume II.",Henry Home
+57700-0.txt,1993,1893.703737935863,Toronto by Gaslight: The Night Hawks of a Great City,The Toronto News
+57811-0.txt,1666,1873.7342384689662,A Character of the Province of Maryland,George Alsop
+57972-0.txt,1995,1916.4896029477634,Acid Rain and Our Nation's Capital,Elaine McGee
+57999-0.txt,1493,1855.5816891050745,The Tragedies of Seneca,Lucius Annaeus Seneca
+58034-0.txt,1656,1916.108037473384,Hawaiian Flowers,Loraine E. Kuck
+58034-8.txt,1656,1916.108037473385,Hawaiian Flowers,Loraine E. Kuck
+58138-0.txt,1672,1906.6416769024474,The Anatomy of Vegetables Begun,Nehemiah Grew
+58242-0.txt,1628,1905.716045306849,The Characters of Theophrastus,Theophrastus
+58308-0.txt,1745,1850.236645232539,A Description of Greenland,Hans Egede
+58393-0.txt,1597,1871.2083285775527,The Mirror of Alchimy,Roger Bacon
+58559-8.txt,1618,1772.5957223953005,The Essays of Adam Smith,Adam Smith
+586-0.txt,1642,1882.0502887381242,"Religio Medici, Hydriotaphia, and the Letter to a Friend",Thomas Browne
+58716-0.txt,1666,1868.0226819455086,The Day of Doom,Michael Wigglesworth
+58952-8.txt,1800,1903.2081707169489,The Red Chancellor,Sir William Magnay
+59400-0.txt,1494,1875.955308462011,The History of Christianity,John S. C. Abbott
+59432-0.txt,1823,1929.48659514633,Plays,Susan Glaspell
+59501-0.txt,1764,1869.8908223209166,Hieroglyfic,Rowland Jones
+59533-8.txt,1970,1855.4983840904433,Secret History,Leonora Sansay
+59695-0.txt,1674,1875.5817517072328,The History of Lapland,John Scheffer
+59698-0.txt,1774,1876.4750395815533,Observations on antimony,John Millar
+59824-0.txt,1800,1910.6904513419001,Selected Poems,Robert Frost
+59897-0.txt,1782,1906.2407345197803,New Poems,Charles G. D. Roberts
+59988-0.txt,1795,1896.0685997456771,Poems of Nature,Henry David Thoreau
+60004-0.txt,1489,1825.3715278417449,"The Fables of Æsop, and Others",Thomas Bewick
+60186-0.txt,1738,1877.950920084627,Polite Conversation,Jonathan Swift
+6038.txt,1200,1898.5478497655572,The Great Doctrines of the Bible,Rev. William Evans
+60392-0.txt,1752,1892.5441495967077,A Treatise on Electricity,Francis Penrose
+60411-0.txt,1770,1893.1027960528777,An Inquiry into the Principles of Political oeconomy (Vol. 1 of 2),James Steuart
+60435-8.txt,1800,1901.2180476704793,The Emblems of Fidelity,James Lane Allen
+60538-0.txt,1792,1902.6637440945362,"The Trial of Captain John Kimber, for the Murder of Two Female Negro Slaves, on Board the Recovery, African Slave Ship:",Student of the Temple
+60732-0.txt,1800,1910.530902099508,Industries and Inventions of the Shakers; Shaker Music,Bertha Lindsay
+60732.txt,1800,1910.530902099509,Industries and Inventions of the Shakers; Shaker Music,Bertha Lindsay
+60766-0.txt,1665,1900.8904734581097,The Discoverie of Witchcraft,Reginald Scot
+60874-0.txt,1489,1843.614289548089,Bewick's Select Fables,Thomas Bewick
+6096.txt,1752,1893.8843695366656,Amelia Volume II,Henry Fielding
+6097.txt,1752,1902.6148196356066,Amelia Volume III,Henry Fielding
+61044-0.txt,1727,1897.989449530749,The Anatomist Dissected,Lemuel Gulliver
+61112-0.txt,1650,1835.4273615797047,A New Light of Alchymie,Micheel Sandivogius
+61143-0.txt,1700,1850.0951080016648,Some Reflections Upon Marriage.,Mary Astell
+61537-0.txt,1641,1897.1870799691776,The Charitable Pestmaster,Thomas Sherwood
+61567-0.txt,1740,1860.9996975117742,"Stonehenge, a Temple Restor'd to the British Druids",William Stukeley
+61588-0.txt,1662,1855.7611180334613,A Treatise of Taxes and Contributions,William Petty
+61683-0.txt,1738,1854.761841302417,The Description and Use of the Globes and the Orrery,Joseph Harris
+61783-0.txt,1633,1883.5916475137406,Paradoxes and Problemes,John Donne
+61910-0.txt,1697,1894.0079166413325,A Funeral Sermon preach'd on the decease of the Right Honourable the Lady Elizabeth Cutts,William Wigan
+6192.txt,1798,1900.179054605905,"Mrs. Falchion, Volume 1.",Gilbert Parker
+61962-0.txt,2000,1905.7394449997464,The Holy Piby,Robert Athlyi Rogers
+61964-0.txt,1695,1821.7720580998084,An Essay on the State of England,John Cary
+62025-0.txt,1581,1798.2588402058389,Positions,Richard Mulcaster
+6210-0.txt,1800,1904.9447691092912,"The Trail of the Sword, Complete",Gilbert Parker
+62251-8.txt,1783,1895.969599582817,The Poems of Alice Meynell,Alice Meynell
+62257-8.txt,1997,1884.7488274690222,Practical Organ Building,W. E. Dickson
+62355-0.txt,1728,1835.138114876496,A Voyage Round The World,William Betagh
+62423-0.txt,1975,1868.7690297007116,History of Madeley,John Randall
+62542-0.txt,1992,1928.729321062388,Infamous Day: Marines at Pearl Harbor 7 December 1941,Robert J. Cressman
+6260-0.txt,1800,1910.6993749975675,"Donovan Pasha And Some People Of Egypt, Complete",Gilbert Parker
+62720-0.txt,1727,1898.3013529510306,"A Short Narrative Of an Extraordinary Delivery of Rabbets, Perform'd by Mr. John Howard Surgeon at Guilford",Nathanael St André
+62764-8.txt,1751,1901.0006334701761,"Remarks upon the solar and the lunar years, the cycle of 19 years, commonly called the golden number, the epact, and a method of finding the time of Easter, as it is now observed in most parts of Europe",George Parker
+62856-0.txt,1739,1856.0091682159698,A Treatise of Human Nature,David Hume
+62944-8.txt,1727,1869.0369993167046,"Experiments of Spiritual Life & Health, And their Preservatives",Roger Williams
+63054-0.txt,1753,1889.3718017581766,Hypatia,John Toland
+63230.txt,2000,1904.9362309796618,Two Stories,Virginia Woolf
+63292-8.txt,1586,1889.9473602000373,Familiar Dialogues,Jacques Bellot
+63318-0.txt,1734,1896.827949662568,Some Experiments concerning Mercury,J. H. Boerhaave
+63322-0.txt,1750,1887.0642227936542,"The Philosophy of Earthquakes, Natural and Religious",William Stukeley
+63497-0.txt,1705,1823.679056456947,Medicina Gymnastica,Francis Fuller
+63508-0.txt,1998,1907.770455266402,The Boy Fortune Hunters in Yucatan,L. Frank Baum
+63659-0.txt,1995,1974.1074514061036,The Roswell Report: Case Closed,James McAndrew
+63678-0.txt,1791,1900.0565704198543,"Travels Through North and South Carolina, Georgia, East and West Florida",William Bartram
+64069-0.txt,1725,1858.6965226669145,"The most notable Antiquity of Great Britain, vulgarly called",Inigo Jones
+64077-0.txt,1753,1901.1536449788568,A Description of a New-Invented Stove-Grate,J. Durno
+6424.txt,1518,1905.6191112639378,A Modern Utopia,H. G. Wells
+6454.txt,1994,1900.7134588513,George Leatrim,Susanna Moodie
+64626-0.txt,1743,1853.2447637979465,"Abury, A Temple of the British Druids, With Some Others,",William Stukeley
+64666-0.txt,2000,1899.6378030339083,Patents and How to Get One,U.S. Department of Commerce
+64895-0.txt,1774,1887.2864472616104,Musical Travels Through England,Joel Collier
+65020-0.txt,1757,1859.8782023734789,The Complete Distiller,A. Cooper
+65147-0.txt,1967,1836.0352796542231,"The English Secretary; or, Methode of Writing Epistles and",Angel Day
+6527-0.txt,1999,1926.9670117680232,Debian GNU/Linux : Guide to Installation and Usage,Goerzen and Othman
+65319-0.txt,1997,1903.6770493091067,Golf Architecture,Alister Mackenzie
+65628-0.txt,1772,1875.2151629278294,"The Natural History of the Tea-Tree, with Observations on the Medical Qualities of Tea, and on the Effects of Tea-Drinking",John Coakley Lettsom
+65778-0.txt,1998,1907.818316628728,A Sagebrush Cinderella,Max Brand
+65972-0.txt,1667,1889.8326600980624,The Plague of Athens,Thomas Sprat
+6707.txt,1788,1899.5577031336295,St. Patrick's Day,Richard Brinsley Sheridan
+6731.txt,1775,1885.6125066990453,The Duenna,Richard Brinsley Sheridan
+6758-0.txt,1700,1840.914363526704,The Adventures of Sir Launcelot Greaves,Tobias Smollett
+7047-0.txt,1992,1918.223082735083,Back To Billabong,Mary Grant Bruce
+7089.txt,1705,1825.7148617475516,The Consolidator,Daniel Defoe
+7224.txt,1998,1901.7315241692427,Within You is the Power,Henry Thomas Hamblin
+7259.txt,1996,1941.5892854130623,Shock and Awe,Harlan K. Ullman
+7409.txt,1711,1897.363576879028,An Essay on Criticism,Alexander Pope
+7414-0.txt,1800,1925.2059211215276,Poor White,Sherwood Anderson
+7642.txt,1800,1900.2620221701568,"Ernest Maltravers, Book 3",Edward Bulwer-Lytton
+7643.txt,1800,1902.4680877386575,"Ernest Maltravers, Book 4",Edward Bulwer-Lytton
+7647.txt,1800,1902.1298739289107,"Ernest Maltravers, Book 8",Edward Bulwer-Lytton
+7654.txt,1800,1903.271034121677,"Kenelm Chillingly, Book 5.",Edward Bulwer-Lytton
+7660.txt,1800,1902.0068120420526,"What Will He Do With It, Book 2.",Edward Bulwer-Lytton
+7663.txt,1800,1901.2901204218983,"What Will He Do With It, Book 5.",Edward Bulwer-Lytton
+7664.txt,1800,1900.0539602768927,"What Will He Do With It, Book 6.",Edward Bulwer-Lytton
+7666.txt,1800,1901.788151008809,"What Will He Do With It, Book 8.",Edward Bulwer-Lytton
+7667.txt,1800,1901.3966004529912,"What Will He Do With It, Book 9.",Edward Bulwer-Lytton
+7956-0.txt,1656,1908.042767131161,Married,August Strindberg
+830-0.txt,1751,1879.7363102722738,The Argonautica,Apollonius Rhodius
+8409-0.txt,1693,1826.158572231281,Love-Letters Between a Nobleman and His Sister,Aphra Behn
+8906-8.txt,1800,1906.3170835002666,Mary Slessor of Calabar: Pioneer Missionary,W. P. Livingstone
+9077-8.txt,1603,1880.8545359298566,"The Tragicall Historie of Hamlet, Prince of Denmarke",William Shakespeare
+914-0.txt,1776,1877.1678315069894,The Uncommercial Traveller,Charles Dickens
+9152-0.txt,1963,1857.9326413521264,Imogen,William Godwin
+9153-8.txt,1763,1899.0919159602138,The History of Louisiana,Le Page Du Pratz
+9454-0.txt,1706,1906.6388466085714,Orchesography,John Weaver
+9845-0.txt,1656,1832.5594868539024,The Spy,James Fenimore Cooper
+9878-8.txt,1723,1830.3389949211712,The Survey of Cornwall,Richard Carew
