@@ -173,9 +173,13 @@ def find_book_google_api(title, author, print_results=False):
             break
         except Timeout as e:
             if i == 3:
+                with open('google_api_errors.txt', 'a', encoding='utf-8') as file:
+                    file.write(f'{title},{author},{str(e)}\n')
                 return {'error': str(e), 'error_type': 'Timeout'}
         except RequestException as e:
             if i == 3:
+                with open('google_api_errors.txt', 'a', encoding='utf-8') as file:
+                    file.write(f'{title},{author},{str(e)}\n')
                 return {'error': str(e), 'error_type': 'RequestException'}
 
 
