@@ -219,9 +219,10 @@ def data_and_metadata(file_name_input):
         
         print(f"Processing file: {filename}")
 
-        text = get_file_text(file_path)
+        text_old = get_file_text(file_path)
+        text = strip_headers(text_old)
         
-        if text is None:
+        if text_old is None:
             print("Skipping file because of error reading file")
             print_cleaned_text(filename, "")
             with open(no_start_file_path, 'a', encoding='utf-8', newline='') as no_start_file:
@@ -229,8 +230,8 @@ def data_and_metadata(file_name_input):
                 writer.writerow([filename, "", "", "", ""])
             continue
             
-        if "Title: " in text:
-            title = text.split("Title: ")[1].split("\n")[0]
+        if "Title: " in text_old:
+            title = text_old.split("Title: ")[1].split("\n")[0]
             print(f"Title: {title}")
         else:
             print("Skipping file because title not found")
@@ -240,8 +241,8 @@ def data_and_metadata(file_name_input):
                 writer.writerow([filename, "", "", "", ""])
             continue
 
-        if "Author: " in text:
-            author = text.split("Author: ")[1].split("\n")[0]
+        if "Author: " in text_old:
+            author = text_old.split("Author: ")[1].split("\n")[0]
             if "by " in author:
                 author = author.split("by ")[1]
             if "(AKA" in author and ")" in author:
@@ -265,8 +266,8 @@ def data_and_metadata(file_name_input):
             continue
 
         # skip if different language
-        if "Translator: " in text:
-            translator = text.split("Translator: ")[1].split("\n")[0]
+        if "Translator: " in text_old:
+            translator = text_old.split("Translator: ")[1].split("\n")[0]
             print("Skipping file because it's a translation")
             print_cleaned_text(filename, text)
             with open(no_start_file_path, 'a', encoding='utf-8', newline='') as no_start_file:
@@ -274,8 +275,8 @@ def data_and_metadata(file_name_input):
                 writer.writerow([filename, title, author, translator, ""])
             continue
 
-        if "Language: " in text:
-            language = text.split("Language: ")[1].split("\n")[0]
+        if "Language: " in text_old:
+            language = text_old.split("Language: ")[1].split("\n")[0]
             if language != "English":
                 print("Skipping file because it's not in English")
                 print_cleaned_text(filename, text)
@@ -315,8 +316,6 @@ def data_and_metadata(file_name_input):
         year = metadata['year']
         first_sentence = metadata['first_sentence']
 
-        text = strip_headers(text)
-
         min_loc = -1
         # make only alphabetic characters for testing
         test_text = ''.join([char for char in text if char.isalpha()]).lower()
@@ -346,6 +345,8 @@ def data_and_metadata(file_name_input):
                         next_loc = next_loc_2
                 
                 next_loc = next_loc + 9
+                if next_loc > 5000:
+                    break
                 clean_text = clean_text[next_loc:]
 
             print_cleaned_text(filename, clean_text)
