@@ -1,5 +1,8 @@
 import os
 
+DATA_RAW_PATH = './data/raw'
+DATA_CLEAN_PATH = './data/raw_clean'
+
 # fail safe for reading files with different encodings
 def get_file_text(file_path):
     try:
@@ -170,12 +173,13 @@ def strip_headers(text):
 
 
 def main():
-    for filename in os.listdir('./data/raw'):
-        file_path = os.path.join('./data', filename)
-        text = get_file_text(file_path)
+    for filename in os.listdir(DATA_RAW_PATH):
+        file_path_input = os.path.join(DATA_RAW_PATH, filename)
+        file_path_output = os.path.join(DATA_CLEAN_PATH, filename)
+        text = get_file_text(file_path_input)
         if text:
             text = strip_headers(text)
-            with open('./data/raw_clean_copy', 'w', encoding='utf-8') as file:
+            with open(file_path_output, 'w', encoding='utf-8') as file:
                 file.write(text)
 
 
