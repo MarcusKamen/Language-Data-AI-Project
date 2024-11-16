@@ -3,9 +3,9 @@
 
 ## Getting Started
 
-1. Pip install requests
+1. Install Python Packages
 ```bash
-pip install requests
+pip install -r requirements.txt
 ```
 
 2. Create empty data and metadata folders
