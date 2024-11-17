@@ -1,13 +1,8 @@
-# scripts/train_model.py
-
 import os
 import pandas as pd
-import json
 import pickle
 import re
 from tqdm import tqdm
-
-# Sklearn and TensorFlow imports
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
@@ -15,21 +10,29 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error
 import tensorflow as tf
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Dropout
+from tensorflow.keras.regularizers import l2
+from tensorflow.keras.losses import Huber
+from tensorflow.keras.callbacks import EarlyStopping
+from scipy.sparse import save_npz, load_npz
+from scipy.sparse import csr_matrix
 
 # Paths
 CLEANED_DATA_PATH = 'data/raw_clean/'  # Path to cleaned text files
-COUNTS_DATA_PATH = 'data/counts/'      # Path to word count JSON files
 METADATA_PATH = 'metadata/metadata.csv'  # Path to metadata.csv
+NO_FIRST_SENTENCE_PATH = 'metadata/nofirstsentence.csv'  # Path to nofirstsentence.csv
 PROCESSED_DATA_PATH = 'processed_data/processed_data.csv'  # Output path
 
-MODEL_SAVE_PATH = 'models/neural/text_year_model.h5'
-VECTORIZER_SAVE_PATH = 'models/neural/tfidf_vectorizer.pkl'
-SCALER_SAVE_PATH = 'models/neural/scaler.pkl'
+MODEL_SAVE_PATH = 'models/text_year_model.h5'
+VECTORIZER_SAVE_PATH = 'models/tfidf_vectorizer.pkl'
+SCALER_SAVE_PATH = 'models/scaler.pkl'
+TFIDF_SPARSE_MATRIX_PATH = 'processed_data/tfidf_sparse.npz'  # Sparse matrix path
 
-def load_metadata(metadata_path):
-    """Load metadata CSV."""
+def load_metadata(metadata_path, no_first_sentence_path):
+    """Load metadata from multiple CSV files and combine them."""
     metadata = pd.read_csv(metadata_path)
-    return metadata
+    no_first_sentence = pd.read_csv(no_first_sentence_path)
+    combined_metadata = pd.concat([metadata, no_first_sentence], ignore_index=True)
+    return combined_metadata
 
 def load_cleaned_text(cleaned_data_path, filename):
     """Load cleaned text from a file."""
@@ -44,9 +47,7 @@ def load_cleaned_text(cleaned_data_path, filename):
 
 def prepare_dataset(metadata_df, cleaned_data_path):
     """Prepare the dataset by merging metadata with cleaned text."""
-    texts = []
-    years = []
-    valid_filenames = []
+    texts, years, valid_filenames = [], [], []
 
     print("Loading and merging cleaned text with metadata...")
     for index, row in tqdm(metadata_df.iterrows(), total=metadata_df.shape[0]):
@@ -58,53 +59,48 @@ def prepare_dataset(metadata_df, cleaned_data_path):
 
         text = load_cleaned_text(cleaned_data_path, filename)
         if text:
-            texts.append(text)
+            texts.append(" ".join(text.split()[:200]))  # Limit each document to first 200 words
             years.append(year)
             valid_filenames.append(filename)
         else:
             print(f"Warning: Cleaned file {filename} could not be loaded.")
 
-    # Create a new DataFrame
-    data = pd.DataFrame({
-        'filename': valid_filenames,
-        'text': texts,
-        'year': years
-    })
-
-    # Save the processed data for future reference
+    data = pd.DataFrame({'filename': valid_filenames, 'text': texts, 'year': years})
     os.makedirs(os.path.dirname(PROCESSED_DATA_PATH), exist_ok=True)
     data.to_csv(PROCESSED_DATA_PATH, index=False)
     print(f"Processed data saved to {PROCESSED_DATA_PATH}")
-
     return data
 
 def preprocess_texts(texts):
-    """Preprocess texts using TF-IDF Vectorizer."""
-    print("Extracting TF-IDF features...")
-    vectorizer = TfidfVectorizer(max_features=5000, stop_words='english')  # Adjust max_features as needed
-    X = vectorizer.fit_transform(texts).toarray()
+    """Preprocess texts using TF-IDF Vectorizer with bigrams, keeping a sparse representation."""
+    print("Extracting TF-IDF features with bigrams...")
+    vectorizer = TfidfVectorizer(max_features=1000, stop_words='english', ngram_range=(1, 2), sublinear_tf=True)
+    X = vectorizer.fit_transform(texts)
+    
+    # Save the sparse TF-IDF matrix
+    save_npz(TFIDF_SPARSE_MATRIX_PATH, X)
+    
     return X, vectorizer
 
 def build_regression_model(input_dim):
-    """Build and compile a neural network for regression."""
+    """Build and compile a neural network for regression with L2 regularization and Huber loss."""
     model = Sequential([
-        Dense(512, activation='relu', input_dim=input_dim),
+        Dense(512, activation='relu', input_dim=input_dim, kernel_regularizer=l2(0.001)),
         Dropout(0.5),
-        Dense(256, activation='relu'),
+        Dense(256, activation='relu', kernel_regularizer=l2(0.001)),
         Dropout(0.5),
-        Dense(128, activation='relu'),
+        Dense(128, activation='relu', kernel_regularizer=l2(0.001)),
         Dropout(0.3),
         Dense(1)  # Single output for regression
     ])
 
-    model.compile(optimizer='adam', loss='mean_squared_error', metrics=['mean_absolute_error'])
+    model.compile(optimizer='adam', loss=Huber(), metrics=['mean_absolute_error'])
     return model
 
 def main():
     """Main function to train the neural network model."""
-    # Load metadata
     print("Loading metadata...")
-    metadata_df = load_metadata(METADATA_PATH)
+    metadata_df = load_metadata(METADATA_PATH, NO_FIRST_SENTENCE_PATH)
 
     # Prepare dataset
     data = prepare_dataset(metadata_df, CLEANED_DATA_PATH)
@@ -123,12 +119,10 @@ def main():
 
     # Split the data
     print("Splitting data into training and testing sets...")
-    X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=0.2, random_state=42
-    )
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
     # Optional: Scale the features (helpful for neural networks)
-    scaler = StandardScaler()
+    scaler = StandardScaler(with_mean=False)  # for sparse matrix compatibility
     X_train = scaler.fit_transform(X_train)
     X_test = scaler.transform(X_test)
 
@@ -143,14 +137,18 @@ def main():
     print("Building the neural network model...")
     model = build_regression_model(input_dim)
 
-    # Train the model
+    # Early stopping callback
+    early_stopping = EarlyStopping(monitor='val_loss', patience=5, restore_best_weights=True)
+
+    # Train the model with early stopping
     print("Training the model...")
     history = model.fit(
         X_train, y_train,
-        epochs=30,  # Adjust epochs as needed
-        batch_size=128,
+        epochs=50,  # Increased epochs for potentially longer training
+        batch_size=64,  # Smaller batch size for better generalization
         validation_split=0.2,
-        verbose=1
+        verbose=1,
+        callbacks=[early_stopping]
     )
 
     # Evaluate the model
@@ -166,14 +164,12 @@ def main():
     import matplotlib.pyplot as plt
     import seaborn as sns
 
-    min_test_year = min(y_test)
-    max_test_year = max(y_test)
     plt.figure(figsize=(10, 6))
     sns.scatterplot(x=y_test, y=y_pred, alpha=0.5)
     plt.xlabel('Actual Year')
     plt.ylabel('Predicted Year')
     plt.title('Actual vs Predicted Year')
-    plt.plot([min_test_year, max_test_year], [min_test_year, max_test_year], 'r--')  # Diagonal line
+    plt.plot([y_test.min(), y_test.max()], [y_test.min(), y_test.max()], 'r--')  # Diagonal line
     plt.show()
 
     # Save the trained model
