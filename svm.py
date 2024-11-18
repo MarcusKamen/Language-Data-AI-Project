@@ -110,6 +110,13 @@ def main(bag_of_words_folder):
 
     # Evaluate the model
     predictions = best_model.predict(X_test)
+
+    os.makedirs('test_results/svm', exist_ok=True)
+    with open('test_results/svm/test_results.csv', 'w') as f:
+        f.write(f"Actual,Predicted Year\n")
+        for actual, predicted in zip(y_test, predictions):
+            f.write(f"{actual},{predicted}\n")
+
     mse = mean_squared_error(y_test, predictions)
     print("Mean Squared Error:", mse)
 

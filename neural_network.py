@@ -160,6 +160,12 @@ def main():
     # Make predictions
     y_pred = model.predict(X_test).flatten()
 
+    os.makedirs('test_results/neural', exist_ok=True)
+    with open('test_results/neural/test_results.csv', 'w') as f:
+        f.write(f"Actual,Predicted Year\n")
+        for actual, predicted in zip(y_test, y_pred):
+            f.write(f"{actual},{predicted}\n")
+
     # Visualize Actual vs Predicted Years
     import matplotlib.pyplot as plt
     import seaborn as sns
