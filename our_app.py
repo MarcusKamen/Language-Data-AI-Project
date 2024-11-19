@@ -278,7 +278,7 @@ def predict():
     print(text)
     processed_words = preprocess_text(text)
     word_counts = count_words(processed_words)
-    prediction = svm_predict(word_counts)
+    prediction = round(svm_predict(word_counts))
 
     print(prediction)
 
@@ -296,7 +296,7 @@ def random_sentence():
             continue
 
         actual = actuals[index]
-        prediction = predictions[index]
+        prediction = round(predictions[index])
         title = titles[index]
         author = authors[index]
 
