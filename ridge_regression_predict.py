@@ -100,6 +100,12 @@ def main(bag_of_words_folder):
         pickle.dump(model, file)
     print(f"Trained model saved to {MODEL_SAVE_PATH}")
 
+    os.makedirs('test_results/ridge', exist_ok=True)
+    with open('test_results/ridge/test_results.csv', 'w') as f:
+        f.write(f"Actual,Predicted Year\n")
+        for actual, predicted in zip(y_test, predictions):
+            f.write(f"{actual},{predicted}\n")
+
     # Visualize Actual vs Predicted Years
     import matplotlib.pyplot as plt
     import seaborn as sns

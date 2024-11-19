@@ -192,3 +192,4 @@ metadata
 # not including models
 models
 final_pickles
+test_results
