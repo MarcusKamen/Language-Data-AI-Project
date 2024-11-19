@@ -15,6 +15,8 @@ from tensorflow.keras.losses import Huber
 from tensorflow.keras.callbacks import EarlyStopping
 from scipy.sparse import save_npz, load_npz
 from scipy.sparse import csr_matrix
+from tensorflow.keras.layers import BatchNormalization
+from tensorflow.keras.optimizers import Adam
 
 # Paths
 CLEANED_DATA_PATH = 'data/raw_clean/'  # Path to cleaned text files
@@ -72,29 +74,29 @@ def prepare_dataset(metadata_df, cleaned_data_path):
     return data
 
 def preprocess_texts(texts):
-    """Preprocess texts using TF-IDF Vectorizer with bigrams, keeping a sparse representation."""
-    print("Extracting TF-IDF features with bigrams...")
-    vectorizer = TfidfVectorizer(max_features=1000, stop_words='english', ngram_range=(1, 2), sublinear_tf=True)
+    """Preprocess texts using TF-IDF Vectorizer with trigrams."""
+    print("Extracting TF-IDF features with trigrams...")
+    vectorizer = TfidfVectorizer(max_features=5000, stop_words='english', ngram_range=(1, 3), sublinear_tf=True)
     X = vectorizer.fit_transform(texts)
-    
-    # Save the sparse TF-IDF matrix
     save_npz(TFIDF_SPARSE_MATRIX_PATH, X)
-    
     return X, vectorizer
 
 def build_regression_model(input_dim):
-    """Build and compile a neural network for regression with L2 regularization and Huber loss."""
+    """Build and compile a neural network for regression with L2 regularization, BatchNorm, and Huber loss."""
     model = Sequential([
         Dense(512, activation='relu', input_dim=input_dim, kernel_regularizer=l2(0.001)),
-        Dropout(0.5),
+        BatchNormalization(),
+        Dropout(0.3),  # Reduced Dropout
         Dense(256, activation='relu', kernel_regularizer=l2(0.001)),
-        Dropout(0.5),
-        Dense(128, activation='relu', kernel_regularizer=l2(0.001)),
+        BatchNormalization(),
         Dropout(0.3),
+        Dense(128, activation='relu', kernel_regularizer=l2(0.001)),
+        BatchNormalization(),
+        Dropout(0.2),  # Reduced Dropout
         Dense(1)  # Single output for regression
     ])
-
-    model.compile(optimizer='adam', loss=Huber(), metrics=['mean_absolute_error'])
+    optimizer = Adam(learning_rate=0.001)  # Tuned learning rate
+    model.compile(optimizer=optimizer, loss=Huber(), metrics=['mean_absolute_error'])
     return model
 
 def main():
@@ -144,7 +146,7 @@ def main():
     print("Training the model...")
     history = model.fit(
         X_train, y_train,
-        epochs=50,  # Increased epochs for potentially longer training
+        epochs=120,  # Increased epochs for potentially longer training
         batch_size=64,  # Smaller batch size for better generalization
         validation_split=0.2,
         verbose=1,
