@@ -128,7 +128,7 @@ def ridge_predict_all(counts):
     return file_list, actuals, predictions, titles, authors
 
 
-def neural_predict_all(test_data):
+def neural_predict_all():
     with open(NEURAL_VECTORIZER_PATH, 'rb') as file:
         vectorizer = pickle.load(file)
     model = tf.keras.models.load_model(NEURAL_MODEL_PATH)
@@ -142,7 +142,7 @@ def neural_predict_all(test_data):
     authors = []
 
     for file in os.listdir(COUNTS_DATA_PATH):
-        if file.endswith('_counts.json'):
+        if not file.endswith('_counts.json'):
             continue
 
         with open(os.path.join(COUNTS_DATA_PATH, file), 'r', encoding='utf-8') as f:
