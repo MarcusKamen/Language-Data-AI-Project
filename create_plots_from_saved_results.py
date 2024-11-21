@@ -31,6 +31,9 @@ def main(model_name):
                 first = False
                 continue
 
+            if len(parts) < 3:
+                continue
+
             file_names.append(parts[0])
             actuals.append(int(parts[1]))
             predictions.append(float(parts[2]))
