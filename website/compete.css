@@ -1,0 +1,22 @@
+body {
+    background-color:rgb(250, 205, 235);
+}
+
+#sentence-section {
+    display: none;
+    
+}
+
+
+#user-sentence-input{
+    display: none;
+}
+
+#guess-response {
+    display: none;
+}
+
+#user-guess-container {
+    display: none;
+}
+

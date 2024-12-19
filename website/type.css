@@ -1,0 +1,13 @@
+body {
+    background-color: lightgoldenrodyellow;
+}
+
+
+
+#sentence-input {
+    height: 40px;
+}
+
+#year-found {
+    display: none;
+}

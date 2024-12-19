@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Compete</title>
+    <link rel="stylesheet" href="compete.css">
+    <link rel="stylesheet" href="game.css">
+    <link rel="icon" type="image/x-icon" href="">
+</head>
+
+<body>
+
+
+    <div class="header-bar">
+        <!-- LOGO HERE -->
+         <img class="logo"src="images/LitReviewLogo.png">
+        <!-- <h1>Lit Website</h1> -->
+        <!-- <p class="sub-title">Compete against our AI model!&nbsp;</p> -->
+
+    </div>
+
+    <div class="container">
+        <div class="content">
+            <button id="get-sentence" onclick="getAISentence()">Get Sentence</button>
+            
+    
+            <div id="sentence-section">
+                <span id="sentence">Loading...</span>
+                <br><br>
+            </div>
+    
+            <!-- Show when sentence is shown -->
+            <div id="user-sentence-input">
+                <br>
+                <span>What year was this written?</span>
+                <br><br>
+                <input type="number" id="sentence-input" autocomplete="off">
+                <br>
+                <button onclick="yearEntered()">Enter</button>
+            </div>
+            <div id="user-guess-container">
+                <p id="user-guess"></p>
+            </div>
+            
+            
+    
+            <div id="guess-response">
+                <p>Computer's guess: <span id="computer-guess-output">loading</span></p>
+                <p>Actual year: <span id="year-output">loading</span></p>
+                <span id="title-and-author"></span><br>
+                <button onclick="location.reload()">Again</button>
+                
+            </div>
+        </div>
+    </div>
+    
+    <button onclick="navigateToHome()">Back to Home</button>
+    <p id="credits">Made by Stewart Geisz, Marcus Kamen, Meraj Khan, and Marius Schueller</p>
+    <script src="navigation.js"></script>
+    <script src="compete.js"></script>
+</body>
+
+</html>
